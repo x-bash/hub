@@ -1,5 +1,15 @@
 # shellcheck shell=sh disable=SC2039,SC1090,SC3043,SC2263
 
+___xcmd_hub(){
+    local subcmd="$1";  shift
+    case "$subcmd" in
+        file)           ___xcmd_hub_file "$@" ;;
+        login)          ___xcmd_hub_login "$@" ;;
+        register)       ___xcmd_hub_register "$@" ;;
+        token)          ___xcmd_hub_token "$@" ;;
+    esac
+}
+
 # Section: account
 
 ___XCMD_SERVICE_URL="http://47.115.207.205"
@@ -18,6 +28,24 @@ ___xcmd_hub_login(){
     # printf "Result: %s\n" "$result" >&2
 
     if [ "${result#ERR=}" = "$result" ]; then
+        ___xcmd_hub_verify "$email"
+    else
+        printf "%s\n" "$result"
+    fi
+}
+
+___xcmd_hub_register(){
+    local email=${1:-""}
+    if [ -z "$email" ]; then
+        printf "%s" "Email: "
+        read -r email
+    fi
+
+    local result
+    result="$(curl "$___XCMD_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
+    local msg=${result#ERR=}
+
+    if [ "$msg" = "$result" ]; then
         ___xcmd_hub_verify "$email"
     else
         printf "%s\n" "$result"
@@ -69,27 +97,19 @@ ___xcmd_hub_login_user(){
     cat "$___X_CMD_XRC_PATH/env/.me" 2>/dev/null
 }
 
-___xcmd_hub_register(){
-    local email=${1:-""}
-    if [ -z "$email" ]; then
-        printf "%s" "Email: "
-        read -r email
-    fi
-
-    local result
-    result="$(curl "$___XCMD_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
-    local msg=${result#ERR=}
-
-    if [ "$msg" = "$result" ]; then
-        ___xcmd_hub_verify "$email"
-    else
-        printf "%s\n" "$result"
-    fi
-}
-
 # EndSection
 
 # Section: file service
+___xcmd_hub_file(){
+    local subcmd="$1";  shift
+    case "$subcmd" in
+        ls)             ___xcmd_hub_file_ls "$@" ;;
+        which)          ___xcmd_hub_file_which "$@" ;;
+        upload)         ___xcmd_hub_file_upload "$@" ;;
+        share)          ___xcmd_hub_file_share "$@" ;;
+        private)        ___xcmd_hub_file_private "$@" ;;
+    esac
+}
 
 ___xcmd_hub_file_ls(){
     local respath="${1:-@me/}"
