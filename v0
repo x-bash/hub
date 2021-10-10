@@ -104,7 +104,7 @@ ___xcmd_hub_file(){
     local subcmd="$1";  shift
     case "$subcmd" in
         ls)             ___xcmd_hub_file_ls "$@" ;;
-        which)          ___xcmd_hub_file_which "$@" ;;
+        which)           "$@" ;;
         upload)         ___xcmd_hub_file_upload "$@" ;;
         share)          ___xcmd_hub_file_share "$@" ;;
         private)        ___xcmd_hub_file_private "$@" ;;
@@ -162,8 +162,11 @@ ___xcmd_hub_file_normalize_respath(){
             fi
             printf "%s" "$user/${respath#@*/}"
             ;;
-        *@*)    printf "%s" "$respath" ;;
-        *)      printf "%s" "$(___xcmd_hub_login_user)/${respath#/}" ;;
+        *@*)
+            ___X_CMD_UNTRUSTED_RESOURCE=1
+            printf "%s" "$respath" ;;
+        *)
+            printf "%s" "$(___xcmd_hub_login_user)/${respath#/}" ;;
     esac
 }
 
