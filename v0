@@ -205,3 +205,18 @@ ___xcmd_hub_file_private(){
 
 # EndSection
 
+___x_cmd_x_cmd_advise_json(){
+    cat <<A
+{
+    "upload": {
+        "#1": "___advise_ls",
+        "#2": [ "@me/" ]
+    },
+    "share": [ "@me/" ],
+    "public": [ "@me/" ],
+    "private": [ "@me/" ],
+    "ls": [ "@me/" ]
+}
+A
+    return 126
+}
