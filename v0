@@ -1,12 +1,12 @@
 # shellcheck shell=sh disable=SC2039,SC1090,SC3043,SC2263
 
-___xcmd_hub(){
+___x_cmd_hub(){
     local subcmd="$1";  shift
     case "$subcmd" in
-        file)           ___xcmd_hub_file "$@" ;;
-        login)          ___xcmd_hub_login "$@" ;;
-        register)       ___xcmd_hub_register "$@" ;;
-        token)          ___xcmd_hub_token "$@" ;;
+        file)           ___x_cmd_hub_file "$@" ;;
+        login)          ___x_cmd_hub_login "$@" ;;
+        register)       ___x_cmd_hub_register "$@" ;;
+        token)          ___x_cmd_hub_token "$@" ;;
     esac
 }
 
@@ -16,7 +16,7 @@ ___XCMD_SERVICE_URL="http://47.115.207.205"
 # ___XCMD_SERVICE_URL="https://hub.x-cmd.com"
 # ___XCMD_SERVICE_URL="http://127.0.0.1:3000"
 
-___xcmd_hub_login(){
+___x_cmd_hub_login(){
     local email="${1}"
     if [ -z "$email" ]; then
         printf "%s" "Email: "
@@ -28,13 +28,13 @@ ___xcmd_hub_login(){
     # printf "Result: %s\n" "$result" >&2
 
     if [ "${result#ERR=}" = "$result" ]; then
-        ___xcmd_hub_verify "$email"
+        ___x_cmd_hub_verify "$email"
     else
         printf "%s\n" "$result"
     fi
 }
 
-___xcmd_hub_register(){
+___x_cmd_hub_register(){
     local email=${1:-""}
     if [ -z "$email" ]; then
         printf "%s" "Email: "
@@ -46,13 +46,13 @@ ___xcmd_hub_register(){
     local msg=${result#ERR=}
 
     if [ "$msg" = "$result" ]; then
-        ___xcmd_hub_verify "$email"
+        ___x_cmd_hub_verify "$email"
     else
         printf "%s\n" "$result"
     fi
 }
 
-___xcmd_hub_verify(){
+___x_cmd_hub_verify(){
     local email="${1:?email}"
 
     local code
@@ -75,7 +75,7 @@ ___xcmd_hub_verify(){
 mkdir -p "$___X_CMD_XRC_PATH/env"
 
 # shellcheck disable=SC2120
-___xcmd_hub_token(){
+___x_cmd_hub_token(){
     if [ -z "$1" ]; then
         cat "$___X_CMD_XRC_PATH/env/.token" 2>/dev/null
     else
@@ -86,52 +86,52 @@ ___xcmd_hub_token(){
         fi
 
         local res
-        if res=$(___xcmd_curl "$___XCMD_SERVICE_URL/api/v0/token/info/email?token=$(___xcmd_hub_token)"); then
+        if res=$(___xcmd_curl "$___XCMD_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
             printf "%s" "$res" > "$___X_CMD_XRC_PATH/env/.me"
             printf "%s" "$1" > "$___X_CMD_XRC_PATH/env/.token"
         fi
     fi
 }
 
-___xcmd_hub_login_user(){
+___x_cmd_hub_login_user(){
     cat "$___X_CMD_XRC_PATH/env/.me" 2>/dev/null
 }
 
 # EndSection
 
 # Section: file service
-___xcmd_hub_file(){
+___x_cmd_hub_file(){
     local subcmd="$1";  shift
     case "$subcmd" in
-        ls)             ___xcmd_hub_file_ls "$@" ;;
+        ls)             ___x_cmd_hub_file_ls "$@" ;;
         which)           "$@" ;;
-        upload)         ___xcmd_hub_file_upload "$@" ;;
-        share)          ___xcmd_hub_file_share "$@" ;;
-        private)        ___xcmd_hub_file_private "$@" ;;
+        upload)         ___x_cmd_hub_file_upload "$@" ;;
+        share)          ___x_cmd_hub_file_share "$@" ;;
+        private)        ___x_cmd_hub_file_private "$@" ;;
     esac
 }
 
-___xcmd_hub_file_ls(){
+___x_cmd_hub_file_ls(){
     local respath="${1:-@me/}"
-    respath="$(___xcmd_hub_file_normalize_respath "$respath")"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     # curl \
-    #     "$___XCMD_SERVICE_URL/api/v0/file/ls?token=$(___xcmd_hub_token)&res=${respath}" 2>/dev/null
+    #     "$___XCMD_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
 
     local res
     res="$(curl \
-        "$___XCMD_SERVICE_URL/api/v0/file/ls?token=$(___xcmd_hub_token)&res=${respath}" 2>/dev/null)"
+        "$___XCMD_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null)"
 
     printf "%s" "$res" | x jq -r .[]
 
 }
 
-___xcmd_hub_file_which(){
+___x_cmd_hub_file_which(){
     local respath="${1:?Provide respath}"
     # case "$respath" in
     #     @me/*|@i/*|@/*)
     #         local user
-    #         user=$(___xcmd_hub_login_user)
+    #         user=$(___x_cmd_hub_login_user)
     #         if [ -z "$user" ]; then
     #             printf "Cannot not find out login user for resource: %s" "$respath" >&2
     #             return 1
@@ -139,10 +139,10 @@ ___xcmd_hub_file_which(){
     #         respath="$user/${respath#@*/}"
     # esac
 
-    respath="$(___xcmd_hub_file_normalize_respath "$respath")"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local CACHE="${___X_CMD_XRC_PATH%/}/${respath#/}"
-    if ___xcmd_curl "$___XCMD_SERVICE_URL/api/v0/file/cat?token=$(___xcmd_hub_token)&res=${respath}"; then
+    if ___xcmd_curl "$___XCMD_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}"; then
         printf "%s" "$CACHE"
     else
         printf "Failed: %s" "$CACHE" 2>/dev/null
@@ -150,12 +150,12 @@ ___xcmd_hub_file_which(){
     fi
 }
 
-___xcmd_hub_file_normalize_respath(){
+___x_cmd_hub_file_normalize_respath(){
     local respath="${1}"
     case "$respath" in
         @me/*|@i/*|@/*)
             local user
-            user=$(___xcmd_hub_login_user)
+            user=$(___x_cmd_hub_login_user)
             if [ -z "$user" ]; then
                 printf "Cannot not find out login user for resource: %s" "$respath" >&2
                 return 1
@@ -168,11 +168,11 @@ ___xcmd_hub_file_normalize_respath(){
             printf "%s" "$respath" ;;
         *)
             ___X_CMD_UNTRUSTED_RESOURCE=hub
-            printf "%s" "$(___xcmd_hub_login_user)/${respath#/}" ;;
+            printf "%s" "$(___x_cmd_hub_login_user)/${respath#/}" ;;
     esac
 }
 
-___xcmd_hub_file_upload(){
+___x_cmd_hub_file_upload(){
     local localfp="${1:?Provide local file}"
 
     [ ! -f "$localfp" ] && {
@@ -181,27 +181,27 @@ ___xcmd_hub_file_upload(){
     }
 
     local respath="${2:?Please provide path}"
-    respath="$(___xcmd_hub_file_normalize_respath "$respath")"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     curl \
         -F "file=@$localfp" \
-        "$___XCMD_SERVICE_URL/api/v0/file/upload?token=$(___xcmd_hub_token)&res=${respath}" 2>/dev/null
+        "$___XCMD_SERVICE_URL/api/v0/file/upload?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
 
-___xcmd_hub_file_share(){
+___x_cmd_hub_file_share(){
     local respath="${1:?Please provide path}"
-    respath="$(___xcmd_hub_file_normalize_respath "$respath")"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl "$___XCMD_SERVICE_URL/api/v0/file/share/true?token=$(___xcmd_hub_token)&res=${respath}" 2>/dev/null
+    curl "$___XCMD_SERVICE_URL/api/v0/file/share/true?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
 
-___xcmd_hub_file_private(){
+___x_cmd_hub_file_private(){
     local respath="${1:?Please provide path}"
-    respath="$(___xcmd_hub_file_normalize_respath "$respath")"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl "$___XCMD_SERVICE_URL/api/v0/file/share/false?token=$(___xcmd_hub_token)&res=${respath}" 2>/dev/null
+    curl "$___XCMD_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
 
