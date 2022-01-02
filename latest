@@ -164,13 +164,13 @@ ___x_cmd_hub_file_normalize_respath(){
                 return 1
             fi
             printf "%s" "$user/${respath#@*/}"
-            ___X_CMD_UNTRUSTED_RESOURCE=me@hub
+            ___X_CMD_WHICH_ONE_RESOURCE_TYPE=me@hub
             ;;
         *@*)
-            ___X_CMD_UNTRUSTED_RESOURCE=hub
+            ___X_CMD_WHICH_ONE_RESOURCE_TYPE=hub
             printf "%s" "$respath" ;;
         *)
-            ___X_CMD_UNTRUSTED_RESOURCE=hub
+            ___X_CMD_WHICH_ONE_RESOURCE_TYPE=hub
             printf "%s" "$(___x_cmd_hub_login_user)/${respath#/}" ;;
     esac
 }
