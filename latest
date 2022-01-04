@@ -1,4 +1,4 @@
-# shellcheck shell=sh disable=SC2039,SC1090,SC3043,SC2263
+# shellcheck shell=sh disable=SC2039,SC1090,SC3043,SC2263 # xrc
 
 # author:       Li Junhao           l@x-cmd.com
 # maintainer:   Li Junhao
@@ -226,3 +226,4 @@ A
     return 126
 }
 
+xrc setmain ___x_cmd_hub
