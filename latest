@@ -209,7 +209,7 @@ ___x_cmd_hub_file_private(){
 # EndSection
 
 ___x_cmd_x_cmd_advise_json(){
-    cat <<A
+    printf "%s" '
 {
     "upload": {
         "#1": "___advise_ls",
@@ -220,7 +220,7 @@ ___x_cmd_x_cmd_advise_json(){
     "private": [ "@me/" ],
     "ls": [ "@me/" ]
 }
-A
+'
     return 126
 }
 
