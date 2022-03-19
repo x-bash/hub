@@ -1,8 +1,4 @@
 
-___X_CMD_HUB_SERVICE_URL="http://47.115.207.205"
-# ___X_CMD_HUB_SERVICE_URL="https://hub.x-cmd.com"
-# ___X_CMD_HUB_SERVICE_URL="http://127.0.0.1:3000"
-
 ___x_cmd_hub_login(){
     local email="${1}"
     if [ -z "$email" ]; then

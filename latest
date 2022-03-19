@@ -1,6 +1,12 @@
 # Author:       Li Junhao   l@x-cmd.com     # xrc
 # shellcheck    shell=sh    disable=SC2039,SC1090,SC3043,SC2263
 
+
+___X_CMD_HUB_SERVICE_URL="http://47.115.207.205"
+# ___X_CMD_HUB_SERVICE_URL="https://hub.x-cmd.com"
+# ___X_CMD_HUB_SERVICE_URL="http://127.0.0.1:3000"
+
+
 . "$___X_CMD_ROOT/hub/lib/account"
 . "$___X_CMD_ROOT/hub/lib/file"
 
