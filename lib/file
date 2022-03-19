@@ -17,11 +17,11 @@ ___x_cmd_hub_file_ls(){
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     # curl \
-    #     "$___XCMD_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
+    #     "$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
 
     local res
     res="$(curl \
-        "$___XCMD_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null)"
+        "$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null)"
 
     printf "%s" "$res" | x jq -r .[]
 
@@ -43,7 +43,7 @@ ___x_cmd_hub_file_which(){
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local CACHE="${___X_CMD_ROOT%/}/${respath#/}"
-    if ___xcmd_curl "$___XCMD_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}"; then
+    if ___xcmd_curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}"; then
         printf "%s" "$CACHE"
     else
         printf "Failed: %s" "$CACHE" 2>/dev/null
@@ -86,7 +86,7 @@ ___x_cmd_hub_file_upload(){
 
     curl \
         -F "file=@$localfp" \
-        "$___XCMD_SERVICE_URL/api/v0/file/upload?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
+        "$___X_CMD_HUB_SERVICE_URL/api/v0/file/upload?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
 
@@ -94,7 +94,7 @@ ___x_cmd_hub_file_share(){
     local respath="${1:?Please provide path}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl "$___XCMD_SERVICE_URL/api/v0/file/share/true?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
+    curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/true?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
 
@@ -102,7 +102,7 @@ ___x_cmd_hub_file_private(){
     local respath="${1:?Please provide path}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl "$___XCMD_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
+    curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
 
