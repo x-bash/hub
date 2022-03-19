@@ -7,7 +7,7 @@ ___x_cmd_hub_login(){
     fi
 
     local result
-    result="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
+    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
     # printf "Result: %s\n" "$result" >&2
 
     if [ "${result#ERR=}" = "$result" ]; then
@@ -25,7 +25,7 @@ ___x_cmd_hub_register(){
     fi
 
     local result
-    result="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
+    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
     local msg=${result#ERR=}
 
     if [ "$msg" = "$result" ]; then
@@ -61,18 +61,19 @@ mkdir -p "$___X_CMD_ROOT/.env"
 ___x_cmd_hub_token(){
     if [ -z "$1" ]; then
         cat "$___X_CMD_ROOT/.env/.token" 2>/dev/null
-    else
-        if [ "$1" = "${1#*/}" ]; then
-            printf "%s" "${1%/*}" > "$___X_CMD_ROOT/.env/.me"
-            printf "%s" "${1#*/}" > "$___X_CMD_ROOT/.env/.token"
-            return
-        fi
+        return
+    fi
 
-        local res
-        if res=$(___xcmd_curl "$___X_CMD_HUB_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
-            printf "%s" "$res" > "$___X_CMD_ROOT/.env/.me"
-            printf "%s" "$1" > "$___X_CMD_ROOT/.env/.token"
-        fi
+    if [ "$1" = "${1#*/}" ]; then
+        printf "%s" "${1%/*}" > "$___X_CMD_ROOT/.env/.me"
+        printf "%s" "${1#*/}" > "$___X_CMD_ROOT/.env/.token"
+        return
+    fi
+
+    local res
+    if res=$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
+        printf "%s" "$res" > "$___X_CMD_ROOT/.env/.me"
+        printf "%s" "$1" > "$___X_CMD_ROOT/.env/.token"
     fi
 }
 
