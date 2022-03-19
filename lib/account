@@ -1,4 +1,3 @@
-
 ___x_cmd_hub_login(){
     local email="${1}"
     if [ -z "$email" ]; then
@@ -46,7 +45,6 @@ ___x_cmd_hub_verify(){
 
     local token=${result#TOKEN=}
     if [ "$token" != "$result" ]; then
-        mkdir -p "$___X_CMD_ROOT/.env"
         printf "%s" "$email" > "$___X_CMD_ROOT/.env/.me"
         printf "%s" "$token" > "$___X_CMD_ROOT/.env/.token"
         printf "%s\n" "Login Success."
@@ -54,8 +52,6 @@ ___x_cmd_hub_verify(){
         printf "%s\n" "$result"
     fi
 }
-
-mkdir -p "$___X_CMD_ROOT/.env"
 
 # shellcheck disable=SC2120
 ___x_cmd_hub_token(){
