@@ -1,9 +1,7 @@
 
-# Section: account
-
-___XCMD_SERVICE_URL="http://47.115.207.205"
-# ___XCMD_SERVICE_URL="https://hub.x-cmd.com"
-# ___XCMD_SERVICE_URL="http://127.0.0.1:3000"
+___X_CMD_HUB_SERVICE_URL="http://47.115.207.205"
+# ___X_CMD_HUB_SERVICE_URL="https://hub.x-cmd.com"
+# ___X_CMD_HUB_SERVICE_URL="http://127.0.0.1:3000"
 
 ___x_cmd_hub_login(){
     local email="${1}"
@@ -13,7 +11,7 @@ ___x_cmd_hub_login(){
     fi
 
     local result
-    result="$(curl "$___XCMD_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
+    result="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
     # printf "Result: %s\n" "$result" >&2
 
     if [ "${result#ERR=}" = "$result" ]; then
@@ -31,7 +29,7 @@ ___x_cmd_hub_register(){
     fi
 
     local result
-    result="$(curl "$___XCMD_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
+    result="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
     local msg=${result#ERR=}
 
     if [ "$msg" = "$result" ]; then
@@ -48,7 +46,7 @@ ___x_cmd_hub_verify(){
     printf "%s" "Code: "
     read -r code
 
-    result="$(curl "$___XCMD_SERVICE_URL/api/v0/account/verify/$email/$code" 2>/dev/null)"
+    result="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/verify/$email/$code" 2>/dev/null)"
 
     local token=${result#TOKEN=}
     if [ "$token" != "$result" ]; then
@@ -75,7 +73,7 @@ ___x_cmd_hub_token(){
         fi
 
         local res
-        if res=$(___xcmd_curl "$___XCMD_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
+        if res=$(___xcmd_curl "$___X_CMD_HUB_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
             printf "%s" "$res" > "$___X_CMD_ROOT/.env/.me"
             printf "%s" "$1" > "$___X_CMD_ROOT/.env/.token"
         fi
@@ -85,5 +83,3 @@ ___x_cmd_hub_token(){
 ___x_cmd_hub_login_user(){
     cat "$___X_CMD_ROOT/.env/.me" 2>/dev/null
 }
-
-# EndSection
