@@ -18,6 +18,35 @@ ___x_cmd_hub_login(){
     fi
 }
 
+# Login:
+# Default: In China, Weixin, or Email. Not in China, using WebSite Login. Or Using Email Code.
+
+# In China:
+# Website login ( In Windows/Mac, in the first. In Linux, check $XDG_CURRENT_DESKTOP )
+# Weixin QR Login
+# Weixin Login With Code
+# Email Login With Code
+
+# Not In China:
+# Website Login ( If not in )
+# Email Verification Code
+# Telegram Verification Code
+# Slack Verification Code
+# Weixin QR Login
+# Weixin Login With Code
+
+
+# Registration:
+# default selection: if in China, Weixin. If it is not in China, using Github.
+
+# In China: <Email Requring>
+# Website Registration
+# Weixin Registration
+
+# Not In China
+# Website Registration
+# Telegram Registration
+
 ___x_cmd_hub_register(){
     local email=${1:-""}
     if [ -z "$email" ]; then
