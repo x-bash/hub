@@ -1,6 +1,5 @@
+# shellcheck shell=sh disable=SC3043
 
-
-# Section: file service
 ___x_cmd_hub_file(){
     local subcmd="$1";  shift
     case "$subcmd" in
@@ -105,5 +104,3 @@ ___x_cmd_hub_file_private(){
     curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
     printf "\n"
 }
-
-# EndSection

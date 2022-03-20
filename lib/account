@@ -1,3 +1,5 @@
+# shellcheck shell=sh disable=SC3043
+
 ___x_cmd_hub_login(){
     local email="${1}"
     if [ -z "$email" ]; then
