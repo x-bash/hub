@@ -8,11 +8,14 @@ ___x_cmd_hub_login(){
     fi
 
     local result
+    hub_log debug "___x_cmd_httpget $___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email"
     result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
-    # printf "Result: %s\n" "$result" >&2
+    local msg="${result#ERR=}"
+    hub_log debug "Login result: $msg"
 
-    if [ "${result#ERR=}" = "$result" ]; then
-        ___x_cmd_hub_verify "$email"
+    if [ "$msg" = "$result" ]; then
+        ticket="${result#TICKET=}"
+        ___x_cmd_hub_verify "$email" "$ticket"
     else
         printf "%s\n" "$result"
     fi
