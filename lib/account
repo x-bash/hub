@@ -1,5 +1,8 @@
 # shellcheck shell=sh disable=SC3043,SC1091
 
+
+xrc http
+
 # Section: utils
 ___x_cmd_hub_login_user(){
     cat "$___X_CMD_HUB_ENV/.me" 2>/dev/null

@@ -4,16 +4,6 @@
 # Registration:
 # default selection: if in China, Weixin. If it is not in China, using Github.
 
-# In China: <Email Requring>
-# Open browser to https://hub.x-cmd.com
-# Scan Weixin QR Code for registration
-
-# Not In China
-# Open browser to https://hub.x-cmd.com
-# Scan Telegram QR Code for registration
-
-# Binding email address for safety.
-
 ___x_cmd_hub_register(){
     local email=${1:-""}
     if [ -z "$email" ]; then
