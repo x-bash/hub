@@ -14,7 +14,7 @@ ___x_cmd_hub_register(){
                     "Register Methods:" \
                     "Open Browser to x-cmd.com" \
                     "Weixin QR Login" \
-                    "Telegram Code"
+                    "Telegram Bot"
 
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_register_official_site "$@" ;;
