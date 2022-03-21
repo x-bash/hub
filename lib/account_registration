@@ -27,13 +27,34 @@ ___x_cmd_hub_register(){
 # Section: Registration
 
 ___x_cmd_hub_register_official_site(){
-    local TOKEN_TO_ACTIVATE="$1"
+
+    if [ -n "$(___x_cmd_hub_token)" ]; then
+        # TODO: ask
+        printf "Detect token in this folder. Erase the token in the disk?" >&2
+        ___x_cmd_hub_token ""
+    fi
+
+    local TOKEN_TO_ACTIVATE
+    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
+    ___x_cmd_hub_token "$TOKEN_TO_ACTIVATE"
+
     ___x_cmd_http_browse "https://hub.x-cmd.com/register?token_to_activate=${TOKEN_TO_ACTIVATE}"
+
 }
 
 ___x_cmd_hub_register_weixin(){
-    local TOKEN_TO_ACTIVATE="$1"
+    if [ -n "$(___x_cmd_hub_token)" ]; then
+        # TODO: ask
+        printf "Detect token in this folder. Erase the token in the disk?" >&2
+        ___x_cmd_hub_token ""
+    fi
+
+    local TOKEN_TO_ACTIVATE
+    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
+    ___x_cmd_hub_token "$TOKEN_TO_ACTIVATE"
+
     ___x_cmd_http_browse "https://hub.x-cmd.com/register?token_to_activate=${TOKEN_TO_ACTIVATE}"
+    return
 }
 
 # EndSection
