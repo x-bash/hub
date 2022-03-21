@@ -3,11 +3,11 @@
 
 x log init hub
 
-# TODO: Why mkdir the .env dir? So it was a crash.
+# TODO: Why mkdir the .env dir? So it was a crash with xenv.
 mkdir -p "$___X_CMD_ROOT/.env"
 
 # ___X_CMD_HUB_SERVICE_URL="http://47.115.207.205"
-# ___X_CMD_HUB_SERVICE_URL="https://hub.x-cmd.com"
+___X_CMD_HUB_SERVICE_URL="https://hub.x-cmd.com"
 ___X_CMD_HUB_SERVICE_URL="http://127.0.0.1:9080"
 
 # TODO: Why use code block? And use no xrc?

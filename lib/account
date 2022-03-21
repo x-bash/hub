@@ -1,4 +1,4 @@
-# shellcheck    shell=sh    disable=SC2039,SC1090,SC3043,SC2263
+# shellcheck shell=sh disable=SC3043
 
 ___x_cmd_hub_login(){
     local email="${1}"
@@ -20,6 +20,37 @@ ___x_cmd_hub_login(){
         printf "%s\n" "$result"
     fi
 }
+
+# Login:
+# Default: In China, Weixin, or Email. Not in China, using WebSite Login. Or Using Email Code.
+
+# In China:
+# Website login ( In Windows/Mac, in the first. In Linux, check $XDG_CURRENT_DESKTOP )
+# Weixin QR Login
+# Weixin Login With Code
+# Email Login With Code
+
+# Not In China:
+# Website Login ( If not in )
+# Email Verification Code
+# Telegram Verification Code
+# Slack Verification Code
+# Weixin QR Login
+# Weixin Login With Code
+
+
+# Registration:
+# default selection: if in China, Weixin. If it is not in China, using Github.
+
+# In China: <Email Requring>
+# Open browser to https://hub.x-cmd.com
+# Scan Weixin QR Code for registration
+
+# Not In China
+# Open browser to https://hub.x-cmd.com
+# Scan Telegram QR Code for registration
+
+# Binding email address for safety.
 
 ___x_cmd_hub_register(){
     local email="${1:-""}"
