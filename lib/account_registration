@@ -7,9 +7,9 @@ ___x_cmd_hub_register(){
         "")
                 ___x_cmd_hub_select \
                     "Register Methods:" \
-                    "Open Browser to x-cmd.com" \
-                    "Weixin QR" \
-                    "Telegram Bot"
+                        "Open Browser to x-cmd.com" \
+                        "Weixin QR" \
+                        "Telegram Bot"
 
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_register_official_site "$@" ;;
