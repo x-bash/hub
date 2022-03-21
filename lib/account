@@ -74,9 +74,9 @@ ___x_cmd_hub_verify(){
     printf "%s" "Code: "
     read -r code
 
-    result="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/verify/$email/$code" 2>/dev/null)"
+    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/verify/$email/$code" 2>/dev/null)"
 
-    local token=${result#TOKEN=}
+    local token="${result#TOKEN=}"
     if [ "$token" != "$result" ]; then
         printf "%s" "$email" > "$___X_CMD_ROOT/.env/.me"
         printf "%s" "$token" > "$___X_CMD_ROOT/.env/.token"
