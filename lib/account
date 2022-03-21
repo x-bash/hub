@@ -1,10 +1,9 @@
 # shellcheck shell=sh disable=SC3043
 
-
+# Section: utils
 ___x_cmd_hub_login_user(){
     cat "$___X_CMD_HUB_ENV/.me" 2>/dev/null
 }
-
 
 ___X_CMD_HUB_ENV="$___X_CMD_ROOT/.env/hub"
 
@@ -28,13 +27,42 @@ ___x_cmd_hub_token(){
     fi
 }
 
-# Section: original
+___x_cmd_hub_select(){
+    :
+}
+
+# EndSection
+
+
+# Section: login
 ___x_cmd_hub_login(){
-    local email="${1}"
-    if [ -z "$email" ]; then
-        printf "%s" "Email: "
-        read -r email
-    fi
+    local op="$1"
+
+    case "$op" in
+        *@*)    ___x_cmd_hub_login_email_witharg "$@" ;;
+        wx)     ___x_cmd_hub_login_weixin ;;
+        tg)     ___x_cmd_hub_login_telegram ;;
+        "")     ___x_cmd_hub_select \
+                    "Login Methods:" \
+                    "Open Browser to x-cmd.com" \
+                    "Email Verfication Code" \
+                    "Weixin QR Login" \
+                    "Telegram Code"
+
+                case "$_SELECT" in
+                    1)          ___x_cmd_hub_login_website "$@" ;;
+                    2)          ___x_cmd_hub_login_website "$@" ;;
+                    3)          ___x_cmd_hub_login_email_interactive "$@" ;;
+                    *)          ;;
+                esac
+                ;;
+        *)
+                ___x_cmd_hub_login_official_site ;;
+    esac
+}
+
+___x_cmd_hub_login_email_witharg(){
+    local email="${1:?Provide email}"
 
     local result
     result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
@@ -47,23 +75,16 @@ ___x_cmd_hub_login(){
     fi
 }
 
-# Login:
-# Default: In China, Weixin, or Email. Not in China, using WebSite Login. Or Using Email Code.
+___x_cmd_hub_login_email_interactive(){
+    local email="${1}"
+    if [ -z "$email" ]; then
+        printf "%s" "Email: "
+        read -r email
+    fi
+    ___x_cmd_hub_login_email_witharg "$email"
+}
 
-# In China:
-# Website login ( In Windows/Mac, in the first. In Linux, check $XDG_CURRENT_DESKTOP )
-# Weixin QR Login
-# Weixin Login With Code
-# Email Login With Code
-
-# Not In China:
-# Website Login ( If not in )
-# Email Verification Code
-# Telegram Verification Code
-# Slack Verification Code
-# Weixin QR Login
-# Weixin Login With Code
-
+# Section: Registration
 
 # Registration:
 # default selection: if in China, Weixin. If it is not in China, using Github.
