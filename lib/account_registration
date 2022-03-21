@@ -31,6 +31,11 @@ ___x_cmd_hub_register_official_site(){
     ___x_cmd_http_browse "https://hub.x-cmd.com/register?token_to_activate=${TOKEN_TO_ACTIVATE}"
 }
 
+___x_cmd_hub_register_weixin(){
+    local TOKEN_TO_ACTIVATE="$1"
+    ___x_cmd_http_browse "https://hub.x-cmd.com/register?token_to_activate=${TOKEN_TO_ACTIVATE}"
+}
+
 # EndSection
 
 # Section: frozen
