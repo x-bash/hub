@@ -27,7 +27,7 @@ ___x_cmd_hub_register(){
 # Section: Registration
 
 ___x_cmd_hub_register_official_site(){
-    ___x_cmd_http_browse "https://hub.x-cmd.com/register"
+    ___x_cmd_http_browse "$___X_CMD_HUB_SERVICE_URL/register"
 }
 
 ___x_cmd_hub_register_weixin(){
