@@ -3,10 +3,11 @@ ___x_cmd_hub_login(){
     local op="$1"
 
     case "$op" in
-        *@*)    ___x_cmd_hub_login_email_witharg "$@" ;;
-        wx)     ___x_cmd_hub_login_weixin ;;
-        tg)     ___x_cmd_hub_login_telegram ;;
-        "")     ___x_cmd_hub_select \
+        *@*)                    ___x_cmd_hub_login_email_witharg "$@" ;;
+        wx|weixin)              ___x_cmd_hub_login_weixin ;;
+        tg|telegram)            ___x_cmd_hub_login_telegram ;;
+        "")
+                ___x_cmd_hub_select \
                     "Login Methods:" \
                     "Open Browser to x-cmd.com" \
                     "Email Verfication Code" \
@@ -15,8 +16,9 @@ ___x_cmd_hub_login(){
 
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_login_website "$@" ;;
-                    2)          ___x_cmd_hub_login_website "$@" ;;
-                    3)          ___x_cmd_hub_login_email_interactive "$@" ;;
+                    2)          ___x_cmd_hub_login_email_interactive "$@" ;;
+                    3)          ___x_cmd_hub_login_email_weixin "$@" ;;
+                    4)          ___x_cmd_hub_login_telegram "$@" ;;
                     *)          ;;
                 esac
                 ;;
@@ -25,6 +27,7 @@ ___x_cmd_hub_login(){
     esac
 }
 
+# Section: email
 ___x_cmd_hub_login_email_witharg(){
     local email="${1:?Provide email}"
 
@@ -47,3 +50,4 @@ ___x_cmd_hub_login_email_interactive(){
     fi
     ___x_cmd_hub_login_email_witharg "$email"
 }
+# EndSection
