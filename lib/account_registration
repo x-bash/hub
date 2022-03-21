@@ -13,14 +13,13 @@ ___x_cmd_hub_register(){
                 ___x_cmd_hub_select \
                     "Register Methods:" \
                     "Open Browser to x-cmd.com" \
-                    "Weixin QR Login" \
+                    "Weixin QR" \
                     "Telegram Bot"
 
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_register_official_site "$@" ;;
-                    2)          ___x_cmd_hub_register_email_interactive "$@" ;;
-                    3)          ___x_cmd_hub_register_weixin "$@" ;;
-                    # 4)          ___x_cmd_hub_register_telegram "$@" ;;
+                    2)          ___x_cmd_hub_register_weixin "$@" ;;
+                    # 3)          ___x_cmd_hub_register_telegram "$@" ;;
                     *)          ;;
                 esac
                 ;;
@@ -31,24 +30,6 @@ ___x_cmd_hub_register(){
 
 
 
-___x_cmd_hub_verify(){
-    local email="${1:?email}"
-
-    local code
-    printf "%s" "Code: "
-    read -r code
-
-    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/verify/$email/$code" 2>/dev/null)"
-
-    local token="${result#TOKEN=}"
-    if [ "$token" != "$result" ]; then
-        printf "%s" "$email" > "$___X_CMD_HUB_ENV/.me"
-        printf "%s" "$token" > "$___X_CMD_HUB_ENV/.token"
-        printf "%s\n" "Login Success."
-    else
-        printf "%s\n" "$result"
-    fi
-}
 
 # EndSection
 
