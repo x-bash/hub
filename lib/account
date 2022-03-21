@@ -1,6 +1,33 @@
 # shellcheck shell=sh disable=SC3043
 
 
+___x_cmd_hub_login_user(){
+    cat "$___X_CMD_HUB_ENV/.me" 2>/dev/null
+}
+
+
+___X_CMD_HUB_ENV="$___X_CMD_ROOT/.env/hub"
+
+# shellcheck disable=SC2120
+___x_cmd_hub_token(){
+    if [ -z "$1" ]; then
+        cat "$___X_CMD_HUB_ENV/.token" 2>/dev/null
+        return
+    fi
+
+    if [ "$1" = "${1#*/}" ]; then
+        printf "%s" "${1%/*}" > "$___X_CMD_HUB_ENV/.me"
+        printf "%s" "${1#*/}" > "$___X_CMD_HUB_ENV/.token"
+        return
+    fi
+
+    local res
+    if res=$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
+        printf "%s" "$res" > "$___X_CMD_HUB_ENV/.me"
+        printf "%s" "$1" > "$___X_CMD_HUB_ENV/.token"
+    fi
+}
+
 # Section: original
 ___x_cmd_hub_login(){
     local email="${1}"
@@ -80,36 +107,12 @@ ___x_cmd_hub_verify(){
 
     local token="${result#TOKEN=}"
     if [ "$token" != "$result" ]; then
-        printf "%s" "$email" > "$___X_CMD_ROOT/.env/.me"
-        printf "%s" "$token" > "$___X_CMD_ROOT/.env/.token"
+        printf "%s" "$email" > "$___X_CMD_HUB_ENV/.me"
+        printf "%s" "$token" > "$___X_CMD_HUB_ENV/.token"
         printf "%s\n" "Login Success."
     else
         printf "%s\n" "$result"
     fi
-}
-
-# shellcheck disable=SC2120
-___x_cmd_hub_token(){
-    if [ -z "$1" ]; then
-        cat "$___X_CMD_ROOT/.env/.token" 2>/dev/null
-        return
-    fi
-
-    if [ "$1" = "${1#*/}" ]; then
-        printf "%s" "${1%/*}" > "$___X_CMD_ROOT/.env/.me"
-        printf "%s" "${1#*/}" > "$___X_CMD_ROOT/.env/.token"
-        return
-    fi
-
-    local res
-    if res=$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
-        printf "%s" "$res" > "$___X_CMD_ROOT/.env/.me"
-        printf "%s" "$1" > "$___X_CMD_ROOT/.env/.token"
-    fi
-}
-
-___x_cmd_hub_login_user(){
-    cat "$___X_CMD_ROOT/.env/.me" 2>/dev/null
 }
 
 # EndSection
