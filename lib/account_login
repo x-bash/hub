@@ -1,7 +1,6 @@
 
 ___x_cmd_hub_login(){
     local op="$1"
-
     case "$op" in
         *@*)                    ___x_cmd_hub_login_email_witharg "$@" ;;
         wx|weixin)              ___x_cmd_hub_login_weixin ;;
