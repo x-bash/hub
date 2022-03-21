@@ -1,9 +1,4 @@
 
-# Section: Registration
-
-# Registration:
-# default selection: if in China, Weixin. If it is not in China, using Github.
-
 ___x_cmd_hub_register(){
     local op="$1"
     case "$op" in
@@ -28,6 +23,11 @@ ___x_cmd_hub_register(){
     esac
 }
 
+
+# Section: Registration
+
+# Registration:
+# default selection: if in China, Weixin. If it is not in China, using Github.
 
 
 
