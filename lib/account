@@ -1,5 +1,7 @@
 # shellcheck shell=sh disable=SC3043
 
+
+# Section: original
 ___x_cmd_hub_login(){
     local email="${1}"
     if [ -z "$email" ]; then
@@ -109,3 +111,5 @@ ___x_cmd_hub_token(){
 ___x_cmd_hub_login_user(){
     cat "$___X_CMD_ROOT/.env/.me" 2>/dev/null
 }
+
+# EndSection
