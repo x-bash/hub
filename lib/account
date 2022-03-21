@@ -15,13 +15,13 @@ else
 fi
 
 if [ -z "$RANDOM" ]; then
-___x_cmd_hub_token_random_md5(){
-    printf "%s" "${RANDOM}${RANDOM}${RANDOM}${RANDOM}${RANDOM}${RANDOM}" | ___x_cmd_hub_token_md5 "$@"
-}
+    ___x_cmd_hub_token_random_md5(){
+        printf "%s" "${RANDOM}${RANDOM}${RANDOM}${RANDOM}${RANDOM}${RANDOM}" | ___x_cmd_hub_token_md5 "$@"
+    }
 else
-___x_cmd_hub_token_random_md5(){
-    dd if=/dev/random bs=1024 count=1 2>/dev/null | ___x_cmd_hub_token_md5 "$@"
-}
+    ___x_cmd_hub_token_random_md5(){
+        dd if=/dev/random bs=1024 count=1 2>/dev/null | ___x_cmd_hub_token_md5 "$@"
+    }
 fi
 
 ___x_cmd_hub_token_generate(){
