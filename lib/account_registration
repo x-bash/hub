@@ -14,7 +14,7 @@ ___x_cmd_hub_register(){
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_register_official_site "$@" ;;
                     2)          ___x_cmd_hub_register_weixin "$@" ;;
-                    # 3)          ___x_cmd_hub_register_telegram "$@" ;;
+                  # 3)          ___x_cmd_hub_register_telegram "$@" ;;
                     *)          ;;
                 esac
                 ;;
