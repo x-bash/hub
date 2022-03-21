@@ -1,0 +1,49 @@
+
+___x_cmd_hub_login(){
+    local op="$1"
+
+    case "$op" in
+        *@*)    ___x_cmd_hub_login_email_witharg "$@" ;;
+        wx)     ___x_cmd_hub_login_weixin ;;
+        tg)     ___x_cmd_hub_login_telegram ;;
+        "")     ___x_cmd_hub_select \
+                    "Login Methods:" \
+                    "Open Browser to x-cmd.com" \
+                    "Email Verfication Code" \
+                    "Weixin QR Login" \
+                    "Telegram Code"
+
+                case "$_SELECT" in
+                    1)          ___x_cmd_hub_login_website "$@" ;;
+                    2)          ___x_cmd_hub_login_website "$@" ;;
+                    3)          ___x_cmd_hub_login_email_interactive "$@" ;;
+                    *)          ;;
+                esac
+                ;;
+        *)
+                ___x_cmd_hub_login_official_site ;;
+    esac
+}
+
+___x_cmd_hub_login_email_witharg(){
+    local email="${1:?Provide email}"
+
+    local result
+    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
+    # printf "Result: %s\n" "$result" >&2
+
+    if [ "${result#ERR=}" = "$result" ]; then
+        ___x_cmd_hub_verify "$email"
+    else
+        printf "%s\n" "$result"
+    fi
+}
+
+___x_cmd_hub_login_email_interactive(){
+    local email="${1}"
+    if [ -z "$email" ]; then
+        printf "%s" "Email: "
+        read -r email
+    fi
+    ___x_cmd_hub_login_email_witharg "$email"
+}
