@@ -29,23 +29,7 @@ ___x_cmd_hub_register(){
     esac
 }
 
-___x_cmd_hub_register_email(){
-    local email=${1:-""}
-    if [ -z "$email" ]; then
-        printf "%s" "Email: "
-        read -r email
-    fi
 
-    local result
-    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
-    local msg=${result#ERR=}
-
-    if [ "$msg" = "$result" ]; then
-        ___x_cmd_hub_verify "$email"
-    else
-        printf "%s\n" "$result"
-    fi
-}
 
 ___x_cmd_hub_verify(){
     local email="${1:?email}"
@@ -61,6 +45,28 @@ ___x_cmd_hub_verify(){
         printf "%s" "$email" > "$___X_CMD_HUB_ENV/.me"
         printf "%s" "$token" > "$___X_CMD_HUB_ENV/.token"
         printf "%s\n" "Login Success."
+    else
+        printf "%s\n" "$result"
+    fi
+}
+
+# EndSection
+
+# Section: frozen
+
+___x_cmd_hub_register_email(){
+    local email=${1:-""}
+    if [ -z "$email" ]; then
+        printf "%s" "Email: "
+        read -r email
+    fi
+
+    local result
+    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
+    local msg=${result#ERR=}
+
+    if [ "$msg" = "$result" ]; then
+        ___x_cmd_hub_verify "$email"
     else
         printf "%s\n" "$result"
     fi
