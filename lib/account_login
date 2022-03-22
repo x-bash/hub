@@ -9,15 +9,14 @@ ___x_cmd_hub_login(){
                 ___x_cmd_hub_select \
                     "Login Methods:" \
                         "Open Browser to x-cmd.com" \
-                        "Email Verfication Code" \
-                        "Weixin QR Login" \
-                        "Telegram Bot"
+                        "Login With Telegram QR" \
+                        "Login With Weixin QR" \
+                        "Login With Verification Code" # SMS, Telegram, Email, Weixin
 
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_login_official_site "$@" ;;
-                    2)          ___x_cmd_hub_login_email_interactive "$@" ;;
+                    2)          ___x_cmd_hub_login_telegram "$@" ;;
                     3)          ___x_cmd_hub_login_weixin "$@" ;;
-                    # 4)          ___x_cmd_hub_login_telegram "$@" ;;
                     *)          ;;
                 esac
                 ;;
@@ -26,6 +25,26 @@ ___x_cmd_hub_login(){
     esac
 }
 
+___x_cmd_hub_login_telegram(){
+    local TOKEN_TO_ACTIVATE
+    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
+    ___x_cmd_hub_token "${TOKEN_TO_ACTIVATE}"
+
+    x qrencode -t ANSI "https://....${TOKEN_TO_ACTIVATE}"
+}
+
+___x_cmd_hub_login_weixin(){
+    local TOKEN_TO_ACTIVATE
+    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
+    ___x_cmd_hub_token "${TOKEN_TO_ACTIVATE}"
+
+    x qrencode -t ANSI "https://....${TOKEN_TO_ACTIVATE}"
+}
+
+___x_cmd_hub_login_weixin_qr(){
+    ___x_cmd_hub_ui_read username
+    ___x_cmd_http "$___X_CMD_HUB_SERVICE_URL/login/"
+}
 
 ___x_cmd_hub_login_official_site(){
 
@@ -43,17 +62,8 @@ ___x_cmd_hub_login_official_site(){
 }
 
 ___x_cmd_hub_login_weixin(){
-    if [ -n "$(___x_cmd_hub_token)" ]; then
-        # TODO: ask
-        printf "Detect token in this folder. Erase the token in the disk?" >&2
-        ___x_cmd_hub_token ""
-    fi
-
-    local TOKEN_TO_ACTIVATE
-    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
-    ___x_cmd_hub_token "$TOKEN_TO_ACTIVATE"
-
-    ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/login/weixin?token_to_activate=${TOKEN_TO_ACTIVATE}"
+    ___x_cmd_hub_ui_read username
+    ___x_cmd_http "$___X_CMD_HUB_SERVICE_URL/login/"
 }
 
 ___x_cmd_hub_login_telegram(){
