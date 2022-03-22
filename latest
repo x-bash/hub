@@ -29,8 +29,6 @@ ___x_cmd_hub_wechat_login_url(){
 
 # EndSection
 
-
-
 ___x_cmd_hub(){
     local subcmd="$1";  [ "$#" -gt 0 ] && shift
     case "$subcmd" in

@@ -53,7 +53,7 @@ ___x_cmd_hub_register_weixin(){
 # Section: frozen
 
 ___x_cmd_hub_register_email(){
-    local email=${1:-""}
+    local email="${1:-""}"
     if [ -z "$email" ]; then
         printf "%s" "Email: "
         read -r email
@@ -61,7 +61,7 @@ ___x_cmd_hub_register_email(){
 
     local result
     result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
-    local msg=${result#ERR=}
+    local msg="${result#ERR=}"
 
     if [ "$msg" = "$result" ]; then
         ___x_cmd_hub_verify "$email"
