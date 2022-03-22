@@ -32,7 +32,20 @@ ___x_cmd_hub_register_official_site(){
 }
 
 ___x_cmd_hub_register_weixin(){
-    ___x_cmd_httpget_gitx x-cmd x-cmd main "lib/resource/qrcode/weixin" "" -
+    local username="${1}"
+    if [ -z "$username" ]; then
+        printf "%s" "Username: "
+        read -r username
+    fi
+
+    qrencode -s 1 -m 3 -t ANSIUTF8 \
+        "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9564dec6fe13a20a&redirect_uri=https%3A%2F%2Fhub.x-cmd.com%2Fapi%2Fv0%2Faccount%2Fwechat%2Fregister%3Ftoken_to_activate%3D$(___x_cmd_hub_token_generate)%26${username}%3Dniralcer&response_type=code&scope=snsapi_userinfo#wechat_redire"
+    # ___x_cmd_httpget_gitx x-cmd x-cmd main "lib/resource/qrcode/weixin" "" -
+    local ok
+    if [ -z "$ok" ]; then
+        printf "%s" "Are you ok? [Y]: "
+        read -r ok
+    fi
 }
 
 # EndSection
