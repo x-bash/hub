@@ -1,11 +1,12 @@
 
 ___x_cmd_hub_register(){
     local op="$1"
+    local _SELECT
     case "$op" in
         wx|weixin)              ___x_cmd_hub_register_weixin ;;
         tg|telegram)            ___x_cmd_hub_register_telegram ;;
         "")
-                ___x_cmd_hub_select \
+                ___x_cmd_ui_select "_SELECT" \
                     "Register Methods:" \
                         "Open Browser to x-cmd.com" \
                         "Weixin QR" \
