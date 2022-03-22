@@ -61,25 +61,6 @@ ___x_cmd_hub_login_official_site(){
     ___x_cmd_http_browse "$___X_CMD_HUB_SERVICE_URL/login?token_to_activate=${TOKEN_TO_ACTIVATE}"
 }
 
-___x_cmd_hub_login_weixin(){
-    ___x_cmd_hub_ui_read username
-    ___x_cmd_http "$___X_CMD_HUB_SERVICE_URL/login/"
-}
-
-___x_cmd_hub_login_telegram(){
-    if [ -n "$(___x_cmd_hub_token)" ]; then
-        # TODO: ask
-        printf "Detect token in this folder. Erase the token in the disk?" >&2
-        ___x_cmd_hub_token ""
-    fi
-
-    local TOKEN_TO_ACTIVATE
-    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
-    ___x_cmd_hub_token "$TOKEN_TO_ACTIVATE"
-
-    ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/login/telegram?token_to_activate=${TOKEN_TO_ACTIVATE}"
-}
-
 # Section: email
 ___x_cmd_hub_login_email_witharg(){
     local email="${1:?Provide email}"
