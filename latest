@@ -22,12 +22,12 @@ ___x_cmd_hub_qrcode(){
 ___x_cmd_hub_wechat_register_url(){
     local token_to_activate="${1:?provide token_to_activate}"
     local username="${2:?provide username}"
-    printf "%s" "${___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX}r%3Fu%3D${username}&response_type=code&scope=snsapi_userinfo&stats=${token_to_activate}#wechat_redire"
+    printf "%s" "${___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX}r%3Fu%3D${username}&response_type=code&scope=snsapi_userinfo&state=${token_to_activate}#wechat_redire"
 }
 
 ___x_cmd_hub_wechat_login_url(){
     local token_to_activate="${1:?provide token_to_activate}"
-    printf "%s" "${___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX}l&response_type=code&scope=snsapi_userinfo&stats=${token_to_activate}#wechat_redire"
+    printf "%s" "${___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX}l&response_type=code&scope=snsapi_userinfo&state=${token_to_activate}#wechat_redire"
 }
 
 # EndSection
