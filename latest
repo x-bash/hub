@@ -15,7 +15,7 @@ ___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX="https://open.weixin.qq.com/connect/oau
 # Section: util
 
 ___x_cmd_hub_qrcode(){
-    qrencode -s 1 -m 3 -t ANSIUTF8 "$1"
+    x qr enc -s 1 -m 3 -t ANSIUTF8 "$1"
     hub_log debug "QR Code url: $1"
 }
 
@@ -42,7 +42,7 @@ ___x_cmd_hub(){
     esac
 }
 
-___x_cmd_x_cmd_advise_json(){
+___x_cmd_hub_advise_json(){
     cat "$___X_CMD_ROOT/hub/lib/hub.advise.json"
     return 126
 }
