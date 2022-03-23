@@ -38,7 +38,7 @@ ___x_cmd_hub_register_weixin(){
         read -r username
     fi
 
-    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_register_url "$username" "$(___x_cmd_hub_token_generate)")"
+    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_register_url "$(___x_cmd_hub_token_generate)" "$username")"
 
     # ___x_cmd_httpget_gitx x-cmd x-cmd main "lib/resource/qrcode/weixin" "" -
     local ok
