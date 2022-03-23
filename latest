@@ -3,7 +3,7 @@
 
 x log init hub
 
-mkdir -p "$___X_CMD_ROOT/.env"
+mkdir -p "$___X_CMD_ROOT/.env/hub"
 
 ___X_CMD_HUB_SERVICE_URL="https://hub.x-cmd.com"
 ___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9564dec6fe13a20a&redirect_uri=https%3A%2F%2Fhub.x-cmd.com%2F"
