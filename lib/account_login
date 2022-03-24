@@ -40,17 +40,24 @@ ___x_cmd_hub_login_telegram_qr(){
 }
 
 ___x_cmd_hub_login_weixin_qr(){
-    local TOKEN_TO_ACTIVATE
-    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
-    ___x_cmd_hub_token "${TOKEN_TO_ACTIVATE}"
+    local token_to_activate
+    token_to_activate="$(___x_cmd_hub_token_generate)"
 
-    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_login_url "$(___x_cmd_hub_token_generate)")"
+    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_login_url "${token_to_activate}")"
 
     local ok
     if [ -z "$ok" ]; then
         printf "%s" "Are you ok? [Y]: "
         read -r ok
     fi
+
+    local res
+    res="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/user?token=${token_to_activate}" 2>/dev/null)"
+    hub_log debug "res: ${res}"
+
+    local userid
+    userid="$(printf "%s" "$res" | x jq -r '.id')"
+    ___x_cmd_hub_token "${userid}/${token_to_activate}"
 
     # echo x qrencode -t ANSI "https://....${TOKEN_TO_ACTIVATE}"
 }

@@ -13,13 +13,14 @@ ___x_cmd_hub_file(){
 
 ___x_cmd_hub_file_ls(){
     local respath="${1:-@me/}"
-    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
+    # TODO: You don't konw what is your user name.
+    # respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    local token
+    local url
     local res
-    token="$(___x_cmd_hub_token)"
-    res="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=${token}&res=${respath}" 2>/dev/null)"
-    hub_log debug "token: $token, res: $res, respath: $respath"
+    url="$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}"
+    res="$(curl "$url" 2>/dev/null)"
+    hub_log debug "res: $res, url: $url"
 
     if [ "${res#ERR=}" != "$res" ]; then
         hub_log error "$res"
@@ -86,10 +87,10 @@ ___x_cmd_hub_file_upload(){
 
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl \
-        -F "file=@$localfp" \
-        "$___X_CMD_HUB_SERVICE_URL/api/v0/file/upload?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
-    printf "\n"
+    local url
+    url="$___X_CMD_HUB_SERVICE_URL/api/v0/file/upload?token=$(___x_cmd_hub_token)&res=${respath}"
+    curl -F "file=@$localfp" "$url" 2>/dev/null
+    hub_log debug "url: $url"
 }
 
 ___x_cmd_hub_file_share(){
