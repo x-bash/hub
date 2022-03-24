@@ -15,13 +15,17 @@ ___x_cmd_hub_file_ls(){
     local respath="${1:-@me/}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    # curl \
-    #     "$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
-
+    local token
     local res
-    res="$(curl \
-        "$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null)"
-    hub_log debug "res: $res"
+    token="$(___x_cmd_hub_token)"
+    res="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/ls?token=${token}&res=${respath}" 2>/dev/null)"
+    hub_log debug "token: $token, res: $res, respath: $respath"
+
+    if [ "${res#ERR=}" != "$res" ]; then
+        hub_log error "$res"
+        return 1
+    fi
+
     printf "%s" "$res" | x jq -r ".[]"
 }
 
