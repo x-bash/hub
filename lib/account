@@ -86,7 +86,7 @@ ___x_cmd_hub_get_and_save_userinfo_by_token(){
     local token="${1:?Please provide token}"
 
     local res
-    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/user?token=${token}" 2>/dev/null)" ; then
+    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/user?token=${token}")" ; then
         hub_log error "Failed to get userinfo by token: $res"
         return 1
     fi
@@ -101,6 +101,8 @@ ___x_cmd_hub_get_and_save_userinfo_by_token(){
 }
 
 # EndSection
+
+
 . "$___X_CMD_ROOT/ui/lib/select"
 . "$___X_CMD_ROOT/hub/lib/account_login"
 . "$___X_CMD_ROOT/hub/lib/account_registration"

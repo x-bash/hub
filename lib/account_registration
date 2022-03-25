@@ -64,7 +64,7 @@ ___x_cmd_hub_register_email(){
     fi
 
     local result
-    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email" 2>/dev/null)"
+    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email")"
     local msg="${result#ERR=}"
 
     if [ "$msg" = "$result" ]; then
