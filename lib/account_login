@@ -12,8 +12,8 @@ ___x_cmd_hub_login(){
                 ___x_cmd_ui_select "_SELECT" \
                     "Login Methods:" \
                         "Open Browser to x-cmd.com" \
-                        "Login With Weixin QR" \
-                        "Login With Email Verification"
+                        "Login With Weixin QR"
+                        # "Login With Email Verification"1
                         # "Login With Telegram QR" \
                         # "Login With OneTime Password"    # SMS, Telegram, Email, Weixin
 
