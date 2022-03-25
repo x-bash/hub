@@ -19,8 +19,8 @@ ___x_cmd_hub_register(){
                 case "$_SELECT" in
                     1)          ___x_cmd_hub_register_official_site "$@"  ;;
                     2)          ___x_cmd_hub_register_weixin        "$@"  ;;
-                    3)          ___x_cmd_hub_register_email         "$@"  ;;
-                    4)          ___x_cmd_hub_register_telegram      "$@"  ;;
+                    # 3)          ___x_cmd_hub_register_email         "$@"  ;;
+                    # 4)          ___x_cmd_hub_register_telegram      "$@"  ;;
                     *)          hub_log error "Unknown _SELECT: $_SELECT" ;;
                 esac
                 ;;
@@ -92,15 +92,23 @@ ___x_cmd_hub_register_email(){
         read -r email
     fi
 
-    local result
-    result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email")"
-    local msg="${result#ERR=}"
-
-    if [ "$msg" = "$result" ]; then
-        ___x_cmd_hub_verify "$email"
-    else
-        printf "%s\n" "$result"
+    local res
+    hub_log debug "Registering email: $email"
+    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email")" ; then
+        hub_log error "Failed to ls file: $res"
+        return 1
     fi
+    hub_log debug "response: ${res}"
+
+    local ticket
+    ticket="$(printf "%s" "$res" | x jq -r '.ticket')"
+
+    # if [ "$msg" = "$result" ]; then
+    #     ticket="${result#TICKET=}"
+    #     ___x_cmd_hub_verify "$email" "$ticket"
+    # else
+    #     printf "%s\n" "$result"
+    # fi
 }
 
 # EndSection
