@@ -10,22 +10,22 @@ ___x_cmd_hub_login(){
         "")
                 ___x_cmd_ui_select "_SELECT" \
                     "Login Methods:" \
+                        "Open Browser to x-cmd.com" \
                         "Login With Weixin QR" \
                         "Login With Email Verification"
-                        # "Open Browser to x-cmd.com" \    # To set the first case
                         # "Login With Telegram QR" \
                         # "Login With OneTime Password"    # SMS, Telegram, Email, Weixin
 
                 case "$_SELECT" in
-                    # 1)          ___x_cmd_hub_login_official_site "$@" ;;
+                    1)          ___x_cmd_hub_login_official_site "$@" ;;
                     # 2)          ___x_cmd_hub_login_telegram_qr "$@" ;;
-                    1)          ___x_cmd_hub_login_weixin_qr "$@" ;;
-                    2)          ___x_cmd_hub_login_email "$@" ;;
+                    2)          ___x_cmd_hub_login_weixin_qr "$@" ;;
+                    3)          ___x_cmd_hub_login_email "$@" ;;
                     *)          ;;
                 esac
                 ;;
         *)
-                ___x_cmd_hub_login_official_site ;;
+                ___x_cmd_hub_login_official_site "$@" ;;
     esac
 }
 
@@ -43,23 +43,16 @@ ___x_cmd_hub_login_weixin_qr(){
     local token_to_activate
     token_to_activate="$(___x_cmd_hub_token_generate)"
 
-    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_login_url "${token_to_activate}")"
+    ___x_cmd_hub_print_qrcode "$(___x_cmd_hub_wechat_login_url "${token_to_activate}")"
+    printf "%s" "Please scan the QR code above, then press [Enter] to continue: "
+    read -r _
 
-    local ok
-    if [ -z "$ok" ]; then
-        printf "%s" "Are you ok? [Y]: "
-        read -r ok
+    local userinfo
+    if userinfo="$(___x_cmd_hub_get_and_save_userinfo_by_token "${token_to_activate}")" ; then
+        hub_log info "Login Successfully, ${userinfo})"
+    else
+        hub_log error "Login Failed"
     fi
-
-    local res
-    res="$(curl "$___X_CMD_HUB_SERVICE_URL/api/v0/account/user?token=${token_to_activate}" 2>/dev/null)"
-    hub_log debug "res: ${res}"
-
-    local userid
-    userid="$(printf "%s" "$res" | x jq -r '.id')"
-    ___x_cmd_hub_token "${userid}/${token_to_activate}"
-
-    # echo x qrencode -t ANSI "https://....${TOKEN_TO_ACTIVATE}"
 }
 
 ___x_cmd_hub_login_official_site(){
@@ -84,7 +77,6 @@ ___x_cmd_hub_login_email_witharg(){
 
     local result
     result="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/login/$email" 2>/dev/null)"
-    # printf "Result: %s\n" "$result" >&2
     if [ "${result#ERR=}" = "$result" ]; then
         printf "%s\n" "Please check your email to approve this visit: $email" >/dev/stderr
     else

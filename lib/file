@@ -13,8 +13,7 @@ ___x_cmd_hub_file(){
 
 ___x_cmd_hub_file_ls(){
     local respath="${1:-@me/}"
-    # TODO: You don't konw what is your user name.
-    # respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local url
     local res
@@ -90,6 +89,7 @@ ___x_cmd_hub_file_upload(){
     local url
     url="$___X_CMD_HUB_SERVICE_URL/api/v0/file/upload?token=$(___x_cmd_hub_token)&res=${respath}"
     curl -F "file=@$localfp" "$url" 2>/dev/null
+    printf "\n"
     hub_log debug "url: $url"
 }
 

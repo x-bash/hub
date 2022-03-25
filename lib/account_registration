@@ -38,15 +38,17 @@ ___x_cmd_hub_register_weixin(){
         read -r username
     fi
 
-    local TOKEN_TO_ACTIVATE
-    TOKEN_TO_ACTIVATE="$(___x_cmd_hub_token_generate)"
-    ___x_cmd_hub_token "${TOKEN_TO_ACTIVATE}"
-    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_register_url "$(___x_cmd_hub_token_generate)" "$username")"
+    local token_to_activate
+    token_to_activate="$(___x_cmd_hub_token_generate)"
+    ___x_cmd_hub_print_qrcode "$(___x_cmd_hub_wechat_register_url "${token_to_activate}" "$username")"
+    printf "%s" "Please scan the QR code above, then press [Enter] to continue: "
+    read -r _
 
-    local ok
-    if [ -z "$ok" ]; then
-        printf "%s" "Are you ok? [Y]: "
-        read -r ok
+    local userinfo
+    if userinfo="$(___x_cmd_hub_get_and_save_userinfo_by_token "${token_to_activate}")" ; then
+        hub_log info "Register Successfully, ${userinfo}"
+    else
+        hub_log error "Register Failed"
     fi
 }
 
