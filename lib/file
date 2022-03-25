@@ -32,17 +32,6 @@ ___x_cmd_hub_file_ls(){
 ___x_cmd_hub_file_which(){
     param:void
     local respath="${1:?Provide respath}"
-    # case "$respath" in
-    #     @me/*|@i/*|@/*)
-    #         local user
-    #         user=$(___x_cmd_hub_login_user)
-    #         if [ -z "$user" ]; then
-    #             printf "Cannot not find out login user for resource: %s" "$respath" >&2
-    #             return 1
-    #         fi
-    #         respath="$user/${respath#@*/}"
-    # esac
-
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local CACHE="${___X_CMD_ROOT%/}/${respath#/}"
