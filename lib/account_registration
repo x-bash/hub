@@ -16,11 +16,11 @@ ___x_cmd_hub_register(){
 
                 # TODO: Should move official site login to the first of the list
                 case "$_SELECT" in
-                    1)          ___x_cmd_hub_register_official_site "$@" ;;
-                    2)          ___x_cmd_hub_register_weixin        "$@" ;;
-                    3)          ___x_cmd_hub_register_email         "$@" ;;
-                    4)          ___x_cmd_hub_register_telegram      "$@" ;;
-                    *)          ;;
+                    1)          ___x_cmd_hub_register_official_site "$@"  ;;
+                    2)          ___x_cmd_hub_register_weixin        "$@"  ;;
+                    3)          ___x_cmd_hub_register_email         "$@"  ;;
+                    4)          ___x_cmd_hub_register_telegram      "$@"  ;;
+                    *)          hub_log error "Unknown _SELECT: $_SELECT" ;;
                 esac
                 ;;
         *)

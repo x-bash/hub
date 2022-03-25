@@ -8,6 +8,7 @@ ___x_cmd_hub_file(){
         upload)         ___x_cmd_hub_file_upload  "$@" ;;
         share)          ___x_cmd_hub_file_share   "$@" ;;
         private)        ___x_cmd_hub_file_private "$@" ;;
+        *)              hub_log error "Unknown subcmd: $subcmd" ;;
     esac
 }
 

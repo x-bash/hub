@@ -18,6 +18,7 @@ ___x_cmd_hub(){
         login)          ___x_cmd_hub_login "$@"     ;;
         register)       ___x_cmd_hub_register "$@"  ;;
         token)          ___x_cmd_hub_token "$@"     ;;
+        *)              hub_log error "Unknown subcmd: $subcmd" ;;
     esac
 }
 
