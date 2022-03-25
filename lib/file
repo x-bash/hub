@@ -3,11 +3,11 @@
 ___x_cmd_hub_file(){
     param:dsl<<A
 subcommands:
-    ls          "List all files"
-    which       "Local files"
-    upload      "Update files"
-    share       "Share files"
-    private     "Private files"
+    ls          "List files in hub"
+    which       "Find file in hub"
+    upload      "Update file to hub"
+    share       "Set file to public"
+    private     "Set file to private"
 A
     param:run
     [ -z "${PARAM_SUBCMD}" ] && ___x_cmd_hub_file help && return

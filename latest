@@ -15,10 +15,10 @@ ___x_cmd_source_inner_lib hub file account
 ___x_cmd_hub(){
     param:dsl <<A
 subcommands:
-    file           "file"
-    login          "Login in to x-cmd"
-    register       "Register in to x-cmd"
-    token          "User token"
+    file           "File management"
+    login          "Login to hub service"
+    register       "Register to hub service"
+    token          "User token management"
 A
     param:run
     [ -z "${PARAM_SUBCMD}" ] && ___x_cmd_hub help && return
