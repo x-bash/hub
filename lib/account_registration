@@ -31,6 +31,13 @@ ___x_cmd_hub_register(){
 # Section: Registration
 
 ___x_cmd_hub_register_official_site(){
+
+    local username="${1}"
+    if [ -z "$username" ]; then
+        printf "%s" "Username: "
+        read -r username
+    fi
+
     if [ -n "$(___x_cmd_hub_token)" ]; then
         # TODO: ask
         printf "Detect token in this folder. Erase the token in the disk?" >&2
@@ -40,7 +47,7 @@ ___x_cmd_hub_register_official_site(){
     local token_to_activate
     token_to_activate="$(___x_cmd_hub_token_generate)"
 
-    ___x_cmd_http_browse "$___X_CMD_HUB_SERVICE_URL/register?token_to_activate=${token_to_activate}"
+    ___x_cmd_http_browse "$___X_CMD_HUB_SERVICE_URL/xlogin?token_to_activate=${token_to_activate}&username=${username}"
     printf "Please register to hub.x-cmd.com, then press [Enter] to continue: "
     read -r _
 
