@@ -1,6 +1,7 @@
 # shellcheck shell=sh disable=SC1072,SC3043
 
 ___x_cmd_hub_register(){
+    param:void
     local op="$1"
     local _SELECT
     case "$op" in
