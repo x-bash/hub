@@ -70,8 +70,8 @@ ___x_cmd_hub_token(){
 
     if [ "$1" != "${1#*/}" ]; then
         hub_log debug "userid: ${1%/*}, token: ${1##*/}"
-        printf "%s" "${1%/*}"  > "$___X_CMD_HUB_ENV/.me"
-        printf "%s" "${1##*/}" > "$___X_CMD_HUB_ENV/.token"
+        printf "%s\n" "${1%/*}"  > "$___X_CMD_HUB_ENV/.me"
+        printf "%s\n" "${1##*/}" > "$___X_CMD_HUB_ENV/.token"
         return
     fi
 
