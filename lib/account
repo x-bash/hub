@@ -76,12 +76,8 @@ ___x_cmd_hub_token(){
         return
     fi
 
-    # TODO
-    # local res
-    # if res=$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/token/info/email?token=$(___x_cmd_hub_token)"); then
-    #     printf "%s" "$res" > "$___X_CMD_HUB_ENV/.me"
-    #     printf "%s" "$1" > "$___X_CMD_HUB_ENV/.token"
-    # fi
+    # Use your token to get user info
+    ___x_cmd_hub_get_and_save_userinfo_by_token "$1"
 }
 
 ___x_cmd_hub_get_and_save_userinfo_by_token(){
