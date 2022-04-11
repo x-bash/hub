@@ -51,19 +51,13 @@ ___x_cmd_hub_file_normalize_respath(){
     local respath="${1}"
     case "$respath" in
         @me/*|@i/*|@/*)
-            local user
-            user=$(___x_cmd_hub_user)
-            if [ -z "$user" ]; then
-                hub_log error "Cannot not find out login user for resource: %s" "$respath"
-                return 1
-            fi
-            printf "%s" "$user/${respath#@*/}"
             ___X_CMD_WHICH_ONE_RESOURCE_TYPE=me@hub
-            ;;
+            printf "%s" "$respath" ;;
         *@*)
             ___X_CMD_WHICH_ONE_RESOURCE_TYPE=hub
             printf "%s" "$respath" ;;
         *)
+            # TODO: Should be review. @el
             ___X_CMD_WHICH_ONE_RESOURCE_TYPE=hub
             printf "%s" "$(___x_cmd_hub_user)/${respath#/}" ;;
     esac

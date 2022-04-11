@@ -50,8 +50,9 @@ ___x_cmd_hub_login_weixin_qr(){
     read -r _
 
     local userinfo
-    if userinfo="$(___x_cmd_hub_get_and_save_userinfo_by_token "${token_to_activate}")" ; then
-        hub_log info "Login Successfully, ${userinfo}"
+    if userinfo="$(___x_cmd_hub_get_userinfo_by_token "${token_to_activate}")" ; then
+        ___x_cmd_hub_token "${token_to_activate}"
+        hub_log info "Login Successfully, ${userinfo}, save token to ${___X_CMD_HUB_ENV}/.token"
     else
         hub_log error "Login Failed"
     fi
