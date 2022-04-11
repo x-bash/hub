@@ -70,6 +70,7 @@ ___x_cmd_hub_token(){
     fi
 }
 
+# TODO: We should cache the user info
 ___x_cmd_hub_get_userinfo_by_token(){
     local token="${1:?Please provide token}"
 
