@@ -87,8 +87,12 @@ ___x_cmd_hub_file_share(){
     local respath="${1:?Please provide path}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/true?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
-    printf "\n"
+    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/true?token=$(___x_cmd_hub_token)&res=${respath}")" ; then
+        hub_log error "Failed to share file: $res"
+        return 1
+    fi
+
+    hub_log info "File shared successfully: $res"
 }
 
 ___x_cmd_hub_file_private(){
@@ -96,6 +100,10 @@ ___x_cmd_hub_file_private(){
     local respath="${1:?Please provide path}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    curl "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}" 2>/dev/null
-    printf "\n"
+    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}")" ; then
+        hub_log error "Failed to private file: $res"
+        return 1
+    fi
+
+    hub_log info "File private successfully: $res"
 }
