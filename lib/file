@@ -37,16 +37,19 @@ ___x_cmd_hub_file_which(){
     local respath="${1:?Provide respath}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
-    local CACHE="${___X_CMD_ROOT%/}/${respath#/}"
-    mkdir -p "${CACHE%/*}"
-    if ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}" >"$CACHE"; then
-        printf "%s\n" "$CACHE"
+    local cache_path="${___X_CMD_HUB_ENV}/.cache/${respath#/}"
+    local cache_expiration=1
+    mkdir -p "${cache_path%/*}"
+    if ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}" "$cache_path" "$cache_expiration"; then
+        hub_log debug "Downloaded ${respath} to ${cache_path}"
+        printf "%s\n" "$cache_path"
     else
-        hub_log error "Failed: $CACHE, res = $(cat "$CACHE")"
+        hub_log error "Failed: ___x_cmd_httpget return $?, you can use 'x log +x' to open the debug log"
         return 1
     fi
 }
 
+# TODO: Should be review. @el
 ___x_cmd_hub_file_normalize_respath(){
     local respath="${1}"
     case "$respath" in
@@ -57,9 +60,8 @@ ___x_cmd_hub_file_normalize_respath(){
             ___X_CMD_WHICH_ONE_RESOURCE_TYPE=hub
             printf "%s" "$respath" ;;
         *)
-            # TODO: Should be review. @el
             ___X_CMD_WHICH_ONE_RESOURCE_TYPE=hub
-            printf "%s" "$(___x_cmd_hub_user)/${respath#/}" ;;
+            printf "%s" "@me/${respath#/}" ;;
     esac
 }
 
