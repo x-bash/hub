@@ -1,6 +1,6 @@
 # shellcheck shell=sh disable=SC3043,SC1091,SC3028
 
-xrc http
+xrc ui/lib/select http
 
 # Section(utils): ___x_cmd_hub_token_generate, ___x_cmd_hub_get_and_save_userinfo_by_token
 
@@ -53,9 +53,9 @@ ___x_cmd_hub_wechat_login_url(){
 
 # EndSection
 
-# Section(env): ___x_cmd_hub_login_user, ___x_cmd_hub_token, ___x_cmd_hub_get_and_save_userinfo_by_token
+# Section(env): ___x_cmd_hub_user, ___x_cmd_hub_token, ___x_cmd_hub_get_and_save_userinfo_by_token
 
-___x_cmd_hub_login_user(){
+___x_cmd_hub_user(){
     cat "$___X_CMD_HUB_ENV/.me" 2>/dev/null
 }
 
@@ -70,7 +70,7 @@ ___x_cmd_hub_token(){
     fi
 
     if [ "$1" != "${1#*/}" ]; then
-        hub_log debug "userid: ${1%/*}, token: ${1##*/}"
+        hub_log debug "username: ${1%/*}, token: ${1##*/}"
         printf "%s\n" "${1%/*}"  > "$___X_CMD_HUB_ENV/.me"
         printf "%s\n" "${1##*/}" > "$___X_CMD_HUB_ENV/.token"
         return
@@ -102,11 +102,10 @@ A
 
     userid="${userid#id=}"
     username="${username#username=}"
-    ___x_cmd_hub_token "${userid}/${token}"
+    ___x_cmd_hub_token "${username}/${token}"
     printf "%s\n" "${username} ${userid}"
 }
 
 # EndSection
 
-xrc ui/lib/select
 ___x_cmd_source_inner_lib hub account_login account_registration
