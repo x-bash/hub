@@ -40,12 +40,13 @@ ___x_cmd_hub_file_which(){
     local cache_path="${___X_CMD_HUB_ENV}/.cache/${respath#/}"
     local cache_expiration=1
     mkdir -p "${cache_path%/*}"
-    if ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}" "$cache_path" "$cache_expiration"; then
+    local error_msg
+    if ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/cat?token=$(___x_cmd_hub_token)&res=${respath}" "$cache_path" "$cache_expiration" error_msg; then
         chmod +x "$cache_path"
         hub:debug "Downloaded ${respath} to ${cache_path}"
         printf "%s\n" "$cache_path"
     else
-        hub:error "Failed: ___x_cmd_httpget return $?, you can use 'x log +x' to open the debug log"
+        hub:error "Failed: $error_msg. Please check the respath."
         return 1
     fi
 }
