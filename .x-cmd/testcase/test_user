@@ -1,0 +1,7 @@
+# shellcheck shell=sh disable=SC1072 #source
+
+test_get_user_info(){
+    @assert "$(x hub user)" "=~" "[a-z]+ [a-z0-9]+"
+}
+
+@assert:file:func
