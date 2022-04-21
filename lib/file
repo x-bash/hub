@@ -33,7 +33,13 @@ ___x_cmd_hub_file_ls(){
 }
 
 ___x_cmd_hub_file_which(){
-    param:void
+    param:dsl<<A
+advise:
+    #1    x hub file ls
+option:
+    #1    "Resourse path"
+A
+    param:run
     local respath="${1:?Provide respath}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
