@@ -6,7 +6,7 @@ test_get_user_info(){
 
 test_logout(){
     x hub logout
-    @assert "$(x hub user)" "=~" "^$"
+    @assert "$(x hub user)" "=" ""
 }
 
 @assert:file:func
