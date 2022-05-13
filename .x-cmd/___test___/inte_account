@@ -1,13 +1,17 @@
-# shellcheck shell=sh disable=SC1072 #source
+# shellcheck shell=sh disable=SC1072,SC3043 #source
+
+test_get_token(){
+    token="$(x hub token)"
+}
 
 test_get_user_info(){
-    @assert "$(x hub user)" "=~" "[a-z]+ [a-z0-9]+"
+    @assert "$(x hub user)" "=~" "[a-z0-9_]+ [a-z0-9]+"
 }
 
 test_logout(){
-    x hub logout
-    @assert "$(x hub user)" "=" ""
+    @assert true x hub logout
+    @assert "$(x hub user)" = ""
+    @assert true x hub token "$token"
 }
 
 @assert:file:func
-

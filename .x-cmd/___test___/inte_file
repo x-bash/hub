@@ -1,0 +1,23 @@
+# shellcheck shell=sh disable=SC1072,SC3043 #source
+
+test_file_ls(){
+    :
+}
+
+test_file_which(){
+    :
+}
+
+test_file_upload(){
+    :
+}
+
+test_file_share(){
+    :
+}
+
+test_file_private(){
+    :
+}
+
+@assert:file:func
