@@ -91,7 +91,7 @@ ___x_cmd_hub_register_email_witharg(){
     token_to_activate="$(___x_cmd_hub_token_generate)"
 
     local res
-    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/register/$email?token_to_activate=${token_to_activate}&username=${username}")" ; then
+    if ! res="$(___x_cmd_hub_client_login_by_email "$email" "$token_to_activate" "$username")" ; then
         hub:error "Failed to login with email: $email, res: $res"
         return 1
     fi

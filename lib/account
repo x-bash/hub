@@ -81,7 +81,7 @@ ___x_cmd_hub_get_userinfo_by_token(){
     fi
 
     local res
-    if ! res="$(___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/user?token=${token}")" ; then
+    if ! res="$(___x_cmd_hub_client_userinfo "$token")" ; then
         hub:error "Failed to get userinfo by token: $res"
         return 1
     fi

@@ -1,15 +1,27 @@
 # shellcheck shell=sh disable=SC1072,SC3043 #source
 
+
+
+test_file_upload(){
+    @assert stdout "x hub file upload $(x wsroot)/.x-cmd/script/demo.js test/demo.js" <<A
+UPLOAD=SUCCESS
+A
+}
+
 test_file_ls(){
-    :
+    @assert stdout "x hub file ls test" <<A
+demo.js
+A
 }
 
 test_file_which(){
-    :
-}
+    @assert stdout x hub file which test/demo.js <<A
+$___X_CMD_ROOT_MOD/.hub/.cache/@me/test/demo.js
+A
 
-test_file_upload(){
-    :
+    @assert stdout x js @me/test/demo.js <<A
+Hello world
+A
 }
 
 test_file_share(){
