@@ -1,7 +1,5 @@
 # shellcheck shell=sh disable=SC1072,SC3043 #source
 
-
-
 test_file_upload(){
     @assert stdout "x hub file upload $(x wsroot)/.x-cmd/script/demo.js test/demo.js" <<A
 UPLOAD=SUCCESS

@@ -107,6 +107,7 @@ ___x_cmd_hub_main_user(){
 ___x_cmd_hub_main_file(){
     param:subcmd ___x_cmd_hub_main_file     \
         ls          "List files in hub"     \
+        rm          "Remove file from hub"  \
         which       "Find file in hub"      \
         upload      "Update file to hub"    \
         share       "Set file to public"    \
@@ -125,6 +126,18 @@ option:
 A
     param:run
     ___x_cmd_hub_file_ls "$@"
+}
+
+___x_cmd_hub_main_file_rm(){
+    param:dsl<<A
+advise:
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote
+option:
+    #1    "Resourse path"
+    --recursive|-r    "Recursive"
+A
+    param:run
+    ___x_cmd_hub_file_rm "$1" "$recursive"
 }
 
 ___x_cmd_hub_main_file_which(){

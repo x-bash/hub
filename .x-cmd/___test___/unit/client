@@ -1,0 +1,9 @@
+# shellcheck shell=sh disable=SC1072,SC3043 #source
+
+xrc hub/lib/main
+
+test_file_rm(){
+   @assert true ___x_cmd_hub_client_file_rm "@me/-r" true
+}
+
+@assert:file:func

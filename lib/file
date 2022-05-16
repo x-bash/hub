@@ -38,6 +38,19 @@ ___x_cmd_hub_file_ls(){
         { jiget_after_tokenize_unquote($0, ".") }'
 }
 
+___x_cmd_hub_file_rm(){
+    local respath="${1:-@me/}"
+    local recursive="${2:-false}"
+
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
+    local res
+    if ! res="$(___x_cmd_hub_client_file_rm "$respath" "$recursive")" ; then
+        hub:error "Failed to rm file, res:$res, respath:$respath, recursive:$recursive"
+        return 1
+    fi
+    hub:debug "response: ${res}"
+}
+
 ___x_cmd_hub_file_which(){
     local respath="${1:?Provide respath}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
