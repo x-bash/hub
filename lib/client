@@ -23,7 +23,6 @@ ___x_cmd_hub_client_userinfo(){
     ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/account/user?token=${token}"
 }
 
-
 # EndSection
 
 # Section: file

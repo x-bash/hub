@@ -15,7 +15,13 @@ A
 }
 
 ___x_cmd_hub_file_ls(){
-    param:void
+    param:dsl<<A
+advise:
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote
+option:
+    #1    "Resourse path"
+A
+    param:run
     local respath="${1:-@me/}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
@@ -26,6 +32,7 @@ ___x_cmd_hub_file_ls(){
     fi
     hub:debug "response: ${res}"
 
+    # TODO: Use jo or ja
     local code
     code="$(xrc cat awk/lib/default.awk awk/lib/json.awk awk/lib/jiter.awk )"
     printf "%s" "$res" | awk "$code"'
@@ -35,7 +42,7 @@ ___x_cmd_hub_file_ls(){
 ___x_cmd_hub_file_which(){
     param:dsl<<A
 advise:
-    #1    x hub file ls
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote
 option:
     #1    "Resourse path"
 A

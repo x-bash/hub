@@ -9,7 +9,7 @@ ___X_CMD_HUB_ENV="$___X_CMD_ROOT/.hub"
 
 ___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9564dec6fe13a20a&redirect_uri=https%3A%2F%2Fhub.x-cmd.com%2F"
 
-xrc:mod:lib hub  file account client
+xrc:mod:lib hub  file account client advise
 
 ___x_cmd_hub(){
     param:dsl <<A
