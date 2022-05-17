@@ -1,7 +1,7 @@
 # shellcheck shell=sh disable=SC3043
 
 x log init hub
-xrc param/latest ui/lib/select
+xrc param/latest ui/lib/select http
 xrc:mod:lib hub client file account/wechat\
     account/login account/registration account/user account/token
 
@@ -165,7 +165,12 @@ A
 
 ___x_cmd_hub_main_file_share(){
     param:void
-    ___x_cmd_hub_file_share "$@"
+
+    if [ -z "$1" ]; then
+        ___x_cmd_hub_file_share_list
+    else
+        ___x_cmd_hub_file_share "$@"
+    fi
 }
 
 ___x_cmd_hub_main_file_private(){
