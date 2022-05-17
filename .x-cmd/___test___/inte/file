@@ -1,24 +1,38 @@
 # shellcheck shell=sh disable=SC1072,SC3043 #source
 
+test_file_rm(){
+    x hub file rm -r script
+    @assert "$(x hub file ls script)" = ""
+}
+
 test_file_upload(){
-    @assert stdout "x hub file upload $(x wsroot)/.x-cmd/script/demo.js test/demo.js" <<A
+    @assert stdout "
+    x hub file upload $(x wsroot)/.x-cmd/script/demo.js script/demo.js
+    x hub file upload $(x wsroot)/.x-cmd/script/demo.py script/demo.py
+    " <<A
+UPLOAD=SUCCESS
 UPLOAD=SUCCESS
 A
 }
 
 test_file_ls(){
-    @assert stdout "x hub file ls test" <<A
+    @assert stdout "x hub file ls script" <<A
 demo.js
+demo.py
 A
 }
 
 test_file_which(){
-    @assert stdout x hub file which test/demo.js <<A
-$___X_CMD_ROOT_MOD/.hub/.cache/@me/test/demo.js
+    @assert stdout x hub file which script/demo.js <<A
+$___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js
 A
 
-    @assert stdout x js @me/test/demo.js <<A
-Hello world
+    @assert stdout x js @me/script/demo.js <<A
+Hello Node !!!
+A
+
+    @assert stdout x py @me/script/demo.py <<A
+Hello Python !!!
 A
 }
 
