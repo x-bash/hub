@@ -19,6 +19,7 @@ ___x_cmd_hub_main(){
         file           "File management"
     param:subcmd:try
     param:run
+    hub:error "subcommand required"
     ___x_cmd_hub_main help
 }
 
