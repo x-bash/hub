@@ -4,5 +4,5 @@ xws install
 ___X_CMD_XRC_MODULE_IMPORTED=
 x advise rm ___x_cmd_hub_main
 x log +x
-xrc hub/latest
+xrc hub
 x log +hub
