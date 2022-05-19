@@ -49,7 +49,9 @@ ___x_cmd_hub_file_ll(){
         hub:error "Failed to ls file: $res"
         return 1
     fi
-    printf "%s" "$res"  # TODO: Use table
+
+    x ui table json ID=._id PATH=.filePath USERID=.userId IS_PUBLIC=.isPublic \
+        -- 'printf "%s" "$res"'
 }
 
 # EndSection
