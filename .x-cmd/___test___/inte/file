@@ -43,11 +43,18 @@ A
 }
 
 test_file_share(){
-    :
+    @assert false x hub file share script
+    @assert true x hub file share script/demo.js
+    @assert stdout "x hub file la script" <<A
+[{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":false}]
+A
 }
 
 test_file_private(){
-    :
+    @assert true x hub file private script/demo.js
+    @assert stdout "x hub file la script" <<A
+[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false}]
+A
 }
 
 @assert:file:func
