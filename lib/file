@@ -20,7 +20,7 @@ ___x_cmd_hub_file_normalize_respath(){
 
 # EndSection
 
-# Section(list): ls、 ll
+# Section(list): ls、 la
 
 ___x_cmd_hub_file_ls(){
     local respath="${1:-@me/}"
@@ -40,18 +40,18 @@ ___x_cmd_hub_file_ls(){
         { jiget_after_tokenize_unquote($0, ".") }'
 }
 
-___x_cmd_hub_file_ll(){
+___x_cmd_hub_file_la(){
     local respath="${1:-@me/}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local res
-    if ! res="$(___x_cmd_hub_client_file_ll "$respath")" ; then
+    if ! res="$(___x_cmd_hub_client_file_la "$respath")" ; then
         hub:error "Failed to ls file: $res"
         return 1
     fi
 
     if [ -t 1 ]; then
-        x ui table json ID=._id PATH=.filePath USERID=.userId IS_PUBLIC=.isPublic \
+        x ui table json PATH=.path IS_PUBLIC=.isPublic \
             -- 'printf "%s" "$res"'
     else
         printf "%s" "$res" #| x ja '(k() ~ "_id|filePath|userId|isPublic") { print v(); }'

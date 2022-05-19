@@ -22,6 +22,12 @@ demo.py
 A
 }
 
+test_file_la(){
+    @assert stdout "x hub file la script" <<A
+[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false}]
+A
+}
+
 test_file_which(){
     @assert stdout x hub file which script/demo.js <<A
 $___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js

@@ -108,7 +108,7 @@ ___x_cmd_hub_main_user(){
 ___x_cmd_hub_main_file(){
     param:subcmd ___x_cmd_hub_main_file     \
         ls          "List files in hub"     \
-        ll          "List files use ui table in hub"     \
+        la          "List all files use ui table in hub"     \
         rm          "Remove file from hub"  \
         which       "Find file in hub"      \
         upload      "Upload file to hub"    \
@@ -131,7 +131,7 @@ A
     ___x_cmd_hub_file_ls "$@"
 }
 
-___x_cmd_hub_main_file_ll(){
+___x_cmd_hub_main_file_la(){
     param:dsl<<A
 advise:
     #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote
@@ -139,7 +139,7 @@ option:
     #1    "Resourse path"
 A
     param:run
-    ___x_cmd_hub_file_ll "$@"
+    ___x_cmd_hub_file_la "$@"
 }
 
 ___x_cmd_hub_main_file_rm(){
