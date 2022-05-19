@@ -50,8 +50,12 @@ ___x_cmd_hub_file_ll(){
         return 1
     fi
 
-    x ui table json ID=._id PATH=.filePath USERID=.userId IS_PUBLIC=.isPublic \
-        -- 'printf "%s" "$res"'
+    if [ -t 1 ]; then
+        x ui table json ID=._id PATH=.filePath USERID=.userId IS_PUBLIC=.isPublic \
+            -- 'printf "%s" "$res"'
+    else
+        printf "%s" "$res" #| x ja '(k() ~ "_id|filePath|userId|isPublic") { print v(); }'
+    fi
 }
 
 # EndSection
