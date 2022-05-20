@@ -105,31 +105,3 @@ ___x_cmd_hub_file_upload(){
 }
 
 # EndSection
-
-# Section(share): share, private
-
-___x_cmd_hub_file_share(){
-    local respath="${1:?Please provide path}"
-    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
-
-    if ! res="$(___x_cmd_hub_client_file_share "${respath}")" ; then
-        hub:error "Failed to share file: $res"
-        return 1
-    fi
-
-    hub:info "File shared successfully: $res"
-}
-
-___x_cmd_hub_file_private(){
-    local respath="${1:?Please provide path}"
-    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
-
-    if ! res="$(___x_cmd_hub_client_file_private "${respath}")" ; then
-        hub:error "Failed to private file: $res"
-        return 1
-    fi
-
-    hub:info "File private successfully: $res"
-}
-
-# EndSection

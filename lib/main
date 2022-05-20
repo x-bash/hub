@@ -2,7 +2,7 @@
 
 x log init hub
 xrc param/latest ui/lib/select http
-xrc:mod:lib hub client file account/wechat\
+xrc:mod:lib hub client file share account/wechat\
     account/login account/registration account/user account/token
 
 
@@ -14,12 +14,13 @@ ___x_cmd_hub_main(){
         login          "Login to hub service"                   \
         register       "Register to hub service"                \
         token          "User token management"                  \
-        user           "get user info '<username> <userid>'"    \
+        user           "Get user info '<username> <userid>'"    \
         logout         "Logout from hub service"                \
-        file           "File management"
+        file           "File management"                        \
+        share          "Share management"
     param:subcmd:try
     param:run
-    hub:error "subcommand required"
+    hub:error "Subcommand required"
     ___x_cmd_hub_main help
 }
 
@@ -103,7 +104,7 @@ ___x_cmd_hub_main_user(){
 
 # EndSection
 
-# Section(file): ls, which, upload, share, private
+# Section(file): ls, which, rm,  upload
 
 ___x_cmd_hub_main_file(){
     param:subcmd ___x_cmd_hub_main_file     \
@@ -185,6 +186,76 @@ ___x_cmd_hub_main_file_share(){
 ___x_cmd_hub_main_file_private(){
     param:void
     ___x_cmd_hub_file_private "$@"
+}
+
+# EndSection
+
+# Section(share): add, rm, ls
+
+___x_cmd_hub_main_share(){
+    param:subcmd ___x_cmd_hub_main_share     \
+        add          "Add share"             \
+        update       "Update share"          \
+        rm           "Remove share"          \
+        ls           "List shares"
+    param:subcmd:try
+    param:run
+    hub:error "subcommand required"
+    ___x_cmd_hub_main_share help
+}
+
+___x_cmd_hub_main_share_add(){
+    param:dsl<<A
+advise:
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote
+option:
+    #1               "Resourse path"
+    --link|-l        "Auto generate share link"
+    --time|-t        "Time"                         <time>=""
+    --ip             "IP"                           <ip>=""
+    --user|-u|m      "User can access"              <user>=""
+    --password|-p    "Password"                     <password>=""
+A
+    param:run
+    echo ___x_cmd_hub_share_add "$@"
+}
+
+___x_cmd_hub_main_share_update(){
+    param:dsl<<A
+advise:
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote
+option:
+    #1               "Resourse path"
+    --link|-l        "Auto generate share link"
+    --time|-t        "Time"                         <time>=""
+    --ip             "IP"                           <ip>=""
+    --user|-u|m      "User can access"              <user>=""
+    --password|-p    "Password"                     <password>=""
+A
+    param:run
+    echo ___x_cmd_hub_share_update "$@"
+}
+
+___x_cmd_hub_main_share_rm(){
+    param:dsl<<A
+advise:
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote_share
+option:
+    #1    "Resourse path"
+A
+    param:run
+    echo ___x_cmd_hub_share_rm "$@"
+}
+
+___x_cmd_hub_main_share_ls(){
+    param:dsl<<A
+advise:
+    #1    xrc hub/latest && ___x_cmd_hub_advise_ls_remote_share
+option:
+    #1    "Resourse path"
+A
+    param:run
+    echo ___x_cmd_hub_share_ls "$@"
 }
 
 # EndSection
