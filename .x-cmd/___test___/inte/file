@@ -9,7 +9,9 @@ test_file_upload(){
     @assert stdout "
     x hub file upload $(x wsroot)/.x-cmd/script/demo.js script/demo.js
     x hub file upload $(x wsroot)/.x-cmd/script/demo.py script/demo.py
+    cd $(x wsroot) && x hub file upload_dist . script/demo.wx
     " <<A
+UPLOAD=SUCCESS
 UPLOAD=SUCCESS
 UPLOAD=SUCCESS
 A
@@ -19,12 +21,13 @@ test_file_ls(){
     @assert stdout "x hub file ls script" <<A
 demo.js
 demo.py
+demo.wx
 A
 }
 
 test_file_la(){
     @assert stdout "x hub file la script" <<A
-[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false}]
+[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/hub.wx","isPublic":false},{"path":"script/demo.wx","isPublic":false}]
 A
 }
 
@@ -33,12 +36,12 @@ test_file_which(){
 $___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js
 A
 
-    @assert stdout x js @me/script/demo.js <<A
-Hello Node !!!
-A
-
-    @assert stdout x py @me/script/demo.py <<A
+    @assert stdout '
+    x py @me/script/demo.py
+    x js @me/script/demo.js
+' <<A
 Hello Python !!!
+Hello Node !!!
 A
 }
 
@@ -46,14 +49,14 @@ test_file_share(){
     @assert false x hub file share script
     @assert true x hub file share script/demo.js
     @assert stdout "x hub file la script" <<A
-[{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":false}]
+[{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":false},{"path":"script/hub.wx","isPublic":false},{"path":"script/demo.wx","isPublic":false}]
 A
 }
 
 test_file_private(){
     @assert true x hub file private script/demo.js
     @assert stdout "x hub file la script" <<A
-[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false}]
+[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/hub.wx","isPublic":false},{"path":"script/demo.wx","isPublic":false}]
 A
 }
 
