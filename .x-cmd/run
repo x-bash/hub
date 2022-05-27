@@ -1,3 +1,5 @@
 x hub token a4d7460541db7115670a94de32d9d294
 x:info "Begin to run Testcase"
 x test
+x hub logout
+x:info "End to run Testcase"
