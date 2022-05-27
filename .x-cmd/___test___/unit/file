@@ -1,0 +1,7 @@
+# shellcheck shell=sh disable=SC1072,SC3043 #source
+
+test_normalize_respath(){
+   @assert false ___x_cmd_hub_file_normalize_respath @padpar/script/demo.wx
+}
+
+@assert:file:func
