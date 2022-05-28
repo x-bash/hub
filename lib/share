@@ -1,7 +1,5 @@
 # shellcheck shell=sh disable=SC3043
 
-# Section(share): share, private
-
 ___x_cmd_hub_file_share(){
     local respath="${1:?Please provide path}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
@@ -25,5 +23,3 @@ ___x_cmd_hub_file_private(){
 
     hub:info "File private successfully: $res"
 }
-
-# EndSection
