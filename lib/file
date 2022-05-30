@@ -114,7 +114,14 @@ ___x_cmd_hub_file_upload_dist(){
     }
 
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
-    ___x_cmd_hub_client_file_upload ___x_cmd_hub_tmp.wx "$respath"
+
+    if ! res=$(___x_cmd_hub_client_file_upload ___x_cmd_hub_tmp.wx "$respath"); then
+        hub:error "Failed: $res. Please check the respath."
+        rm -rf ___x_cmd_hub_tmp.wx
+        return 1
+    fi
+
+    printf "%s\n" "$res"
     rm -rf ___x_cmd_hub_tmp.wx
 }
 
