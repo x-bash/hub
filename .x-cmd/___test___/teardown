@@ -1,1 +1,2 @@
 x hub logout 2>/dev/null
+x hub token "$token"

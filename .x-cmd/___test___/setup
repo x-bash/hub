@@ -1,5 +1,6 @@
 # shellcheck shell=sh disable=SC1072 #source
 
+token="$(x hub token)"
 x hub token 793d847d95f1f60e3c5a9e68e9478227
 
 ( cd "$(x wsroot)" && xws test ) 2>/dev/null
