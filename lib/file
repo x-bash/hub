@@ -40,6 +40,24 @@ ___x_cmd_hub_file_ls(){
         { jiget_after_tokenize_unquote($0, ".") }'
 }
 
+___x_cmd_hub_file_ll(){
+    local respath="${1:-@me/}"
+    respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
+
+    local res
+    if ! res="$(___x_cmd_hub_client_file_ll "$respath")" ; then
+        hub:error "Failed to ls file: $res"
+        return 1
+    fi
+
+    if [ -t 1 ]; then
+        x ui table json PATH=.path IS_PUBLIC=.isPublic SIZE=.size MD5=.md5 CREATE_AT=.createdAt UPDATE_AT=.updateAt \
+            -- 'printf "%s" "$res"'
+    else
+        printf "%s" "$res" #| x ja '(k() ~ "_id|filePath|userId|isPublic") { print v(); }'
+    fi
+}
+
 ___x_cmd_hub_file_la(){
     local respath="${1:-@me/}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
@@ -51,7 +69,7 @@ ___x_cmd_hub_file_la(){
     fi
 
     if [ -t 1 ]; then
-        x ui table json PATH=.path IS_PUBLIC=.isPublic \
+        x ui table json PATH=.path IS_PUBLIC=.isPublic SIZE=.size MD5=.md5 CREATE_AT=.createdAt UPDATE_AT=.updateAt \
             -- 'printf "%s" "$res"'
     else
         printf "%s" "$res" #| x ja '(k() ~ "_id|filePath|userId|isPublic") { print v(); }'
