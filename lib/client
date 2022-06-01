@@ -72,16 +72,6 @@ ___x_cmd_hub_client_file_rm(){
     ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/rm?token=$(___x_cmd_hub_token)&res=${respath}&recursive=${recursive}"
 }
 
-___x_cmd_hub_client_file_share(){
-    local respath="${1:?Provide respath}"
-    ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/true?token=$(___x_cmd_hub_token)&res=${respath}"
-}
-
-___x_cmd_hub_client_file_private(){
-    local respath="${1:?Provide respath}"
-    ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file/share/false?token=$(___x_cmd_hub_token)&res=${respath}"
-}
-
 # EndSection
 
 # Section: share

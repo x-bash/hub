@@ -46,20 +46,4 @@ Hello Node !!!
 A
 }
 
-test_file_share(){
-    @assert false x hub file share script
-    @assert true x hub file share script/demo.js
-    @assert true x hub file share script/demo.wx
-#     @assert stdout "x hub file la script" <<A
-# [{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":true}]
-# A
-}
-
-test_file_private(){
-    @assert true x hub file private script/demo.js
-#     @assert stdout "x hub file la script" <<A
-# [{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":true}]
-# A
-}
-
 @assert:file:func
