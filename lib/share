@@ -1,5 +1,23 @@
 # shellcheck shell=sh disable=SC3043
 
+___x_cmd_hub_share_ls(){
+    ___x_cmd_hub_client_share_ls
+}
+
+___x_cmd_hub_share_add(){
+    ___x_cmd_hub_client_share_add "$@"
+}
+
+___x_cmd_hub_share_update(){
+    ___x_cmd_hub_client_share_update "$@"
+}
+
+___x_cmd_hub_share_rm(){
+    ___x_cmd_hub_client_share_rm "$@"
+}
+
+# Section: dreprecated share
+
 ___x_cmd_hub_file_share(){
     local respath="${1:?Please provide path}"
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
@@ -23,3 +41,5 @@ ___x_cmd_hub_file_private(){
 
     hub:info "File private successfully: $res"
 }
+
+# EndSection
