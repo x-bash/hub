@@ -34,19 +34,22 @@ A
 }
 
 test_file_ll(){
-    @assert stdout 'x hub file ll script | x jq -r ".[] | \"\(.path),\(.isDir),\(.size)\""' <<A
-demo.js,false,29
-demo.py,false,25
-demo.wx,false,315791
-py/,true,0
+    @assert stdout 'x hub file ll script | x jq -r ".[] | \"\(.path),\(.isDir)\""' <<A
+demo.js,false
+demo.py,false
+demo.wx,false
+py/,true
 A
 }
 
 test_file_la(){
-    : # TODO: Wait the assert to compare json
-#     @assert stdout "x hub file la script" <<A
-# [{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":false}]
-# A
+    # TODO: Wait the assert to compare json
+    @assert stdout 'x hub file la script | x jq -r ".[] | \"\(.path),\(.isDir)\""' <<A
+demo.js,false
+demo.py,false
+demo.wx,false
+py/demo.py,false
+A
 }
 
 test_file_which(){
