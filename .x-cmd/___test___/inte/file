@@ -7,10 +7,13 @@ test_file_rm(){
 
 test_file_upload(){
     @assert stdout "
-    x hub file upload $(x wsroot)/.x-cmd/script/demo.js script/demo.js
-    x hub file upload $(x wsroot)/.x-cmd/script/demo.py script/demo.py
-    cd $(x wsroot) && x hub file upload_dist . script/demo.wx
+    cd $(x wsroot) || return 1
+    x hub file upload .x-cmd/script/demo.js script/demo.js
+    x hub file upload .x-cmd/script/demo.py script/demo.py
+    x hub file upload .x-cmd/script/demo.py script/py/demo.py
+    x hub file upload_dist . script/demo.wx
     " <<A
+UPLOAD=SUCCESS
 UPLOAD=SUCCESS
 UPLOAD=SUCCESS
 UPLOAD=SUCCESS
@@ -22,6 +25,20 @@ test_file_ls(){
 demo.js
 demo.py
 demo.wx
+py/
+A
+
+    @assert stdout "x hub file ls script/py" <<A
+demo.py
+A
+}
+
+test_file_ll(){
+    @assert stdout 'x hub file ll script | x jq -r ".[] | \"\(.path),\(.isDir),\(.size)\""' <<A
+demo.js,false,29
+demo.py,false,25
+demo.wx,false,315791
+py/,true,0
 A
 }
 
@@ -32,18 +49,18 @@ test_file_la(){
 # A
 }
 
-# test_file_which(){
-#     @assert stdout x hub file which script/demo.js <<A
-# $___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js
-# A
+test_file_which(){
+    @assert stdout x hub file which script/demo.js <<A
+$___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js
+A
 
-#     @assert stdout '
-#     x py @me/script/demo.py
-#     x js @me/script/demo.js
-# ' <<A
-# Hello Python !!!
-# Hello Node !!!
-# A
-# }
+    @assert stdout '
+    x py @me/script/demo.py
+    x js @me/script/demo.js
+' <<A
+Hello Python !!!
+Hello Node !!!
+A
+}
 
 @assert:file:func
