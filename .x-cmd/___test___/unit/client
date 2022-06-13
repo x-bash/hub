@@ -6,37 +6,37 @@ xrc hub/lib/main
 #    @assert true ___x_cmd_hub_client_file_rm "@me/-r" true
 # }
 
-test_share_rm(){
-    @assert true ___x_cmd_hub_client_share_rm "@me/script/demo.js"
-    @assert true ___x_cmd_hub_client_share_rm "@me/script/demo.py"
-    @assert true ___x_cmd_hub_client_share_rm "@me/script/demo.wx"
-    @assert stdout "___x_cmd_hub_client_share_ls" <<A
-[]
-A
-}
-
-test_share_ls(){
-    @assert stdout "___x_cmd_hub_client_share_ls" <<A
-[]
-A
-}
-
-test_share_add(){
-    @assert true ___x_cmd_hub_client_share_add "@me/script/demo.js"
-    @assert true ___x_cmd_hub_client_share_add "@me/script/demo.py"
-    @assert true ___x_cmd_hub_client_share_add "@me/script/demo.wx"
+# test_share_rm(){
+#     @assert true ___x_cmd_hub_client_share_rm "@me/script/demo.js"
+#     @assert true ___x_cmd_hub_client_share_rm "@me/script/demo.py"
+#     @assert true ___x_cmd_hub_client_share_rm "@me/script/demo.wx"
 #     @assert stdout "___x_cmd_hub_client_share_ls" <<A
-# [{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":true},{"path":"script/demo.wx","isPublic":true}]
+# []
 # A
-}
+# }
 
-test_share_update(){
-    @assert true ___x_cmd_hub_client_share_update "@me/script/demo.js" 10
-    @assert true ___x_cmd_hub_client_share_update "@me/script/demo.py" 5
-    @assert true ___x_cmd_hub_client_share_update "@me/script/demo.wx" 4
+# test_share_ls(){
 #     @assert stdout "___x_cmd_hub_client_share_ls" <<A
-# [{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":false}]
+# []
 # A
-}
+# }
+
+# test_share_add(){
+#     @assert true ___x_cmd_hub_client_share_add "@me/script/demo.js"
+#     @assert true ___x_cmd_hub_client_share_add "@me/script/demo.py"
+#     @assert true ___x_cmd_hub_client_share_add "@me/script/demo.wx"
+# #     @assert stdout "___x_cmd_hub_client_share_ls" <<A
+# # [{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":true},{"path":"script/demo.wx","isPublic":true}]
+# # A
+# }
+
+# test_share_update(){
+#     @assert true ___x_cmd_hub_client_share_update "@me/script/demo.js" 10
+#     @assert true ___x_cmd_hub_client_share_update "@me/script/demo.py" 5
+#     @assert true ___x_cmd_hub_client_share_update "@me/script/demo.wx" 4
+# #     @assert stdout "___x_cmd_hub_client_share_ls" <<A
+# # [{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":false}]
+# # A
+# }
 
 @assert:file:func

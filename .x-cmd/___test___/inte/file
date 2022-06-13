@@ -32,18 +32,18 @@ test_file_la(){
 # A
 }
 
-test_file_which(){
-    @assert stdout x hub file which script/demo.js <<A
-$___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js
-A
+# test_file_which(){
+#     @assert stdout x hub file which script/demo.js <<A
+# $___X_CMD_ROOT_MOD/.hub/.cache/@me/script/demo.js
+# A
 
-    @assert stdout '
-    x py @me/script/demo.py
-    x js @me/script/demo.js
-' <<A
-Hello Python !!!
-Hello Node !!!
-A
-}
+#     @assert stdout '
+#     x py @me/script/demo.py
+#     x js @me/script/demo.js
+# ' <<A
+# Hello Python !!!
+# Hello Node !!!
+# A
+# }
 
 @assert:file:func
