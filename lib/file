@@ -45,7 +45,7 @@ ___x_cmd_hub_file_ll(){
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local res
-    if ! res="$(___x_cmd_hub_client_file_ll "$respath")" ; then
+    if ! res="$(___x_cmd_hub_client_file_ls "$respath" detail)" ; then
         hub:error "Failed to ls file: $res"
         return 1
     fi
@@ -63,7 +63,7 @@ ___x_cmd_hub_file_la(){
     respath="$(___x_cmd_hub_file_normalize_respath "$respath")"
 
     local res
-    if ! res="$(___x_cmd_hub_client_file_la "$respath")" ; then
+    if ! res="$(___x_cmd_hub_client_file_ls "$respath" detail true)" ; then
         hub:error "Failed to ls file: $res"
         return 1
     fi
