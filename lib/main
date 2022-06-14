@@ -120,7 +120,7 @@ option:
     #1    "Resourse path"
 A
     param:run
-    ___x_cmd_hub_file_ls "$@"
+    ___x_cmd_hub_file_list "$@"
 }
 
 ___x_cmd_hub_main_file_ll(){
@@ -131,7 +131,7 @@ option:
     #1    "Resourse path"
 A
     param:run
-    ___x_cmd_hub_file_ll "$@"
+    ___x_cmd_hub_file_list "$1" detail
 }
 
 ___x_cmd_hub_main_file_la(){
@@ -142,7 +142,7 @@ option:
     #1    "Resourse path"
 A
     param:run
-    ___x_cmd_hub_file_la "$@"
+    ___x_cmd_hub_file_list "$1" detail true
 }
 
 ___x_cmd_hub_main_file_rm(){

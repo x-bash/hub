@@ -54,7 +54,7 @@ ___x_cmd_hub_client_file_cat(){
 ___x_cmd_hub_client_file_ls(){
     local respath="${1:?Provide respath}"
     local type="${2:-""}"
-    local recursive="${2:-false}"
+    local recursive="${3:-""}"
     ___x_cmd_httpget "$___X_CMD_HUB_SERVICE_URL/api/v0/file?token=$(___x_cmd_hub_token)&res=${respath}&type=${type}&recursive=${recursive}"
 }
 
