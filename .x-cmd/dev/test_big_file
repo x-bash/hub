@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 1. 4个不同大小的文件进行测试
 dd if=/dev/urandom of=sample2.txt bs=64M count=5 2>/dev/null
 dd if=/dev/urandom of=sample3.txt bs=64M count=3 2>/dev/null
 dd if=/dev/urandom of=sample4.txt bs=64M count=2 2>/dev/null
@@ -23,5 +22,3 @@ kill "$pid"
 sleep 400
 
 rm sample*.txt
-
-# 结论: 所以是谁的请求后到，然后就谁就最终覆盖
