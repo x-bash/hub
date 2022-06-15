@@ -221,7 +221,7 @@ option:
     --password|-p    "Password"                     <password>=""
 A
     param:run
-    echo ___x_cmd_hub_share_add "$@"
+    ___x_cmd_hub_share_add "$@"
 }
 
 ___x_cmd_hub_main_share_update(){
@@ -237,7 +237,7 @@ option:
     --password|-p    "Password"                     <password>=""
 A
     param:run
-    echo ___x_cmd_hub_share_update "$@"
+    ___x_cmd_hub_share_update "$@"
 }
 
 ___x_cmd_hub_main_share_rm(){
@@ -248,7 +248,7 @@ option:
     #1    "Resourse path"
 A
     param:run
-    echo ___x_cmd_hub_share_rm "$@"
+    ___x_cmd_hub_share_rm "$@"
 }
 
 ___x_cmd_hub_main_share_ls(){
@@ -259,7 +259,7 @@ option:
     #1    "Resourse path"
 A
     param:run
-    echo ___x_cmd_hub_share_ls "$@"
+    ___x_cmd_hub_share_ls "$@"
 }
 
 # EndSection
