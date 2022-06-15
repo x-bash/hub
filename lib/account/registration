@@ -1,7 +1,5 @@
 # shellcheck shell=sh disable=SC3043
 
-# Section: official_site, weixin
-
 ___x_cmd_hub_register_official_site(){
 
     local username="${1}"
@@ -53,8 +51,6 @@ ___x_cmd_hub_register_weixin(){
         hub:error "Register Failed"
     fi
 }
-
-# EndSection
 
 # Section: email(frozen)
 ___x_cmd_hub_register_email_witharg(){
