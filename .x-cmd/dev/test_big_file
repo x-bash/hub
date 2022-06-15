@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# 1. 4个不同大小的文件进行测试
+dd if=/dev/urandom of=sample2.txt bs=64M count=5 2>/dev/null
+dd if=/dev/urandom of=sample3.txt bs=64M count=3 2>/dev/null
+dd if=/dev/urandom of=sample4.txt bs=64M count=2 2>/dev/null
+dd if=/dev/urandom of=sample5.txt bs=64M count=1 2>/dev/null
+
+printf "sample2.txt: %s\n" "$(date)"
+(aws s3 cp sample2.txt s3://plrom/demo >/dev/null && date) &
+sleep 2
+printf "sample3.txt: %s\n" "$(date)"
+(aws s3 cp sample3.txt s3://plrom/demo >/dev/null && date) &
+sleep 60
+printf "sample4.txt: %s\n" "$(date)"
+(aws s3 cp sample4.txt s3://plrom/demo >/dev/null && date) &
+sleep 2
+aws s3 cp sample5.txt s3://plrom/demo >/dev/null &
+
+read -r pid
+kill "$pid"
+
+sleep 400
+
+rm sample*.txt
+
+# 结论: 所以是谁的请求后到，然后就谁就最终覆盖
