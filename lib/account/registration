@@ -11,7 +11,7 @@ ___x_cmd_hub_register_telegram(){
     local token_to_activate
     token_to_activate="$(___x_cmd_hub_token_generate)"
 
-    ___x_cmd_hub_qrcode "https://hub.x-cmd.com/t/${token_to_activate}"
+    ___x_cmd_hub_qrcode "https://hub.x-cmd.com/t/$token_to_activate/$username"
     printf "Please scan the QR code above, then press [Enter] to continue: "
     read -r _
 
