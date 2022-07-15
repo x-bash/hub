@@ -1,0 +1,13 @@
+# shellcheck shell=sh disable=SC1072,SC3043 #source
+
+test_send_msg(){
+    @assert stdout '
+    x hub msg wechat "hello world"
+    x hub msg telegram "hello world"
+    ' <<A
+Success send msg
+Success send msg
+A
+}
+
+@assert:file:func
