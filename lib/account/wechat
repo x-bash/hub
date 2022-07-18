@@ -17,3 +17,8 @@ ___x_cmd_hub_wechat_login_url(){
     local token_to_activate="${1:?provide token_to_activate}"
     printf "%s" "${___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX}l&response_type=code&scope=snsapi_userinfo&state=${token_to_activate}"
 }
+
+___x_cmd_hub_wechat_connect_url(){
+    local token_to_activate="${1:?provide token_to_activate}"
+    printf "%s" "${___X_CMD_HUB_WECHAT_AUTHORIZE_URL_PREFIX}c&response_type=code&scope=snsapi_userinfo&state=${token_to_activate}"
+}

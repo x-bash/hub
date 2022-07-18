@@ -1,5 +1,12 @@
 # shellcheck shell=sh disable=SC3043
 
-___x_cmd_hub_connect_wechat(){
+___x_cmd_hub_account_connect_wechat(){
+    local token_to_activate
+    token_to_activate="$(___x_cmd_hub_token_generate)"
 
+    ___x_cmd_hub_qrcode "$(___x_cmd_hub_wechat_connect_url "${token_to_activate}")"
+    printf "Please scan the QR code above, then press [Enter] to continue: "
+    read -r _
+
+    # A way to confirm connect is successful.
 }
