@@ -6,15 +6,11 @@ test_share_ls(){
     @assert true x hub share rm script/demo.wx
     @assert true x hub share add script/demo.js
     @assert true x hub share add script/demo.wx
-    @assert stdout "x hub file la script" <<A
-[{"path":"script/demo.js","isPublic":true},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":true}]
-A
-}
-
-test_share_add(){
-    @assert true x hub share add script/demo.js
-    @assert stdout "x hub file la script" <<A
-[{"path":"script/demo.js","isPublic":false},{"path":"script/demo.py","isPublic":false},{"path":"script/demo.wx","isPublic":true}]
+    @assert stdout 'x hub file la script | x jq -r ".[] | \"\(.path),\(.isDir)\""' <<A
+demo.js,false
+demo.py,false
+demo.wx,false
+py/demo.py,false
 A
 }
 
