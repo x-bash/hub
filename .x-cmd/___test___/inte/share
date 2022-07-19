@@ -2,6 +2,8 @@
 
 test_share_ls(){
     @assert false x hub share add script
+    @assert true x hub share rm script/demo.js
+    @assert true x hub share rm script/demo.wx
     @assert true x hub share add script/demo.js
     @assert true x hub share add script/demo.wx
     @assert stdout "x hub file la script" <<A
