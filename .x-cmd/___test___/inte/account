@@ -5,12 +5,12 @@ test_get_token(){
 }
 
 test_get_user_info(){
-    @assert "$(x hub user)" "=~" "[a-z0-9_]+ [a-z0-9]+"
+    @assert "$(x hub account info)" "=~" "[a-z0-9_]+ [a-z0-9]+"
 }
 
 test_logout(){
     @assert true x hub logout
-    @assert "$(x hub user)" = ""
+    @assert "$(x hub account info)" = ""
     @assert true x hub token "$token"
 }
 
